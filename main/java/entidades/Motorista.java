@@ -1,4 +1,4 @@
-package com.mycompany.projetotcc.entidades;
+package entidades;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;

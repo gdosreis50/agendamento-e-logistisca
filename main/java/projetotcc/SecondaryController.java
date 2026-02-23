@@ -1,4 +1,4 @@
-package com.mycompany.projetotcc;
+package projetotcc;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

@@ -1,10 +1,26 @@
-package com.mycompany.projetotcc.entidades;
+package entidades;
+
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class Veiculo {
+    
+    @SerializedName("idveiculo")
     private int idVeiculo;
     private String placa;
     private String tipo;
     private Funcionario funcionario;
+    @SerializedName("vagoes")
+    private List<Vagao> vagoes;
+
+    public List<Vagao> getVagoes() {
+        return vagoes;
+    }
+
+    public void setVagoes(List<Vagao> vagoes) {
+        this.vagoes = vagoes;
+    }
+
 
     public int getIdVeiculo() {
         return idVeiculo;

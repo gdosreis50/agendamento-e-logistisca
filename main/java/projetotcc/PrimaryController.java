@@ -1,6 +1,6 @@
-package com.mycompany.projetotcc;
+package projetotcc;
 
-import com.mycompany.projetotcc.App;
+import projetotcc.App;
 import java.io.IOException;
 import javafx.fxml.FXML;
 

@@ -1,4 +1,5 @@
-package com.mycompany.projetotcc.entidades;
+package entidades;
+
 
 public class Vagao {
     
@@ -55,6 +56,11 @@ public class Vagao {
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+    
+    @Override
+    public String toString(){
+        return comprimento + " X " + largura + " X " + altura;
     }
     
     

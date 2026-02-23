@@ -1,4 +1,4 @@
-package com.mycompany.projetotcc.entidades;
+package entidades;
 
 
 public class Transportadora {
