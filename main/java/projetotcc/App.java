@@ -45,7 +45,7 @@ public class App extends Application {
     public static void main(String[] args) throws Exception {
             try {
                 
-                //if(MotoristaService.desativarMotorista(5)){
+                //if(VeiculoService.desativarVeiculo(1)){
                 //    System.out.println("Yes");
                 //}else{
                 //    System.out.print("No!");
@@ -55,8 +55,8 @@ public class App extends Application {
                 //Date data = new Date();
                 //data.getTime();
                 
-                //if(MotoristaService.atualizaMotorista(2, "Anderson Jose Felipe", "12345678911", "15975325", data, "E", "14997815749", 2)){
-                //    System.out.println("Yes");
+                //if(VeiculoService.atualizaVeiculo(1, "BVS8326", "Opalão", 2)){
+                //   System.out.println("Yes");
                 //}else{
                 //    System.out.print("No!");
                 //}
@@ -66,7 +66,7 @@ public class App extends Application {
                 //Date data = new Date();
                 //data.getTime();
                 
-                //if(MotoristaService.novoMotorista("Cassio", "14789632599", "000000", data , "E", "10222222222", 2)){
+                //if(VeiculoService.novoVeiculo("FKC2323", "Truck", 2)){
                 //    System.out.println("Yes");
                 //}else{
                 //    System.out.println("No!");
@@ -86,14 +86,14 @@ public class App extends Application {
                 }
                 
             //==================================================================================//   
-                //Motorista motorista = new Motorista();
+                //Veiculo veiculo = new Veiculo();
                 
-                //motorista = MotoristaService.getMotorista(2);
+                //veiculo = VeiculoService.getVeiculo(1);
                 
                 //System.out.print(
-                //        motorista.getNomeMotorista() + " | " +
-                //        motorista.getCpf() + " | " +
-                //        motorista.getIdMotorista() + " | "
+                //        veiculo.getPlaca()+ " | " +
+                //        veiculo.getTipo()+ " | " +
+                //        veiculo.getVagoes()+ " | "
                 //);
             
             
