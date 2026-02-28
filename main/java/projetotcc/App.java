@@ -27,8 +27,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("telaInicial"), 1280, 720);
         stage.setScene(scene);
+        
         stage.show();
     }
 
@@ -73,17 +74,18 @@ public class App extends Application {
                 //}
                 
             //===============================================================================//    
-                List<Veiculo> lista = VeiculoService.listarVeiculo();
+                
+                //List<Veiculo> lista = VeiculoService.listarVeiculo();
 
-                for (Veiculo v : lista) {
-                    System.out.println(
-                            "ID: " + v.getIdVeiculo()+
-                            " | Nome: " + v.getPlaca()+
-                            " | Tipo: " + v.getTipo() +
-                            " | Funcionario FK: " + v.getFuncionario() + 
-                            " | Vagao " + v.getVagoes()
-                    );
-                }
+                //for (Veiculo v : lista) {
+                //    System.out.println(
+                //            "ID: " + v.getIdVeiculo()+
+                //            " | Nome: " + v.getPlaca()+
+                //            " | Tipo: " + v.getTipo() +
+                //            " | Funcionario FK: " + v.getFuncionario() + 
+                //            " | Vagao " + v.getVagoes()
+                //    );
+                //}
                 
             //==================================================================================//   
                 //Veiculo veiculo = new Veiculo();
@@ -97,7 +99,7 @@ public class App extends Application {
                 //);
             
             
-            //launch();
+            launch();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

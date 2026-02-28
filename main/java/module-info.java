@@ -6,8 +6,14 @@ module projetotcc {
     exports projetotcc;
     requires com.google.gson;
     requires java.net.http;
+    requires java.base;
     
     opens entidades to com.google.gson;
     opens Dto to com.google.gson;
+    
+    opens controller to javafx.fxml;
+    requires javafx.graphicsEmpty;
+    
+    requires java.logging;
      
 }

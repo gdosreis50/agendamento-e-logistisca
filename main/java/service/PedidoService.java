@@ -35,7 +35,7 @@ public class PedidoService {
     }
     
     //Retorna um objeto tipo Pedido a partir de seu ID
-    public static Pedido getPedido(int numPedido) throws Exception{
+    public static Pedido getPedido(String numPedido) throws Exception{
         
             HttpRequest getPedido = HttpRequest.newBuilder()
                 .uri(new URI("http://localhost/api/pedido/" + numPedido))

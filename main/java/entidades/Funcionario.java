@@ -51,7 +51,7 @@ public class Funcionario {
     
     @Override
     public String toString() {
-        return "Registrado por: " + nomeFunc;
+        return nomeFunc;
     }
     
     
