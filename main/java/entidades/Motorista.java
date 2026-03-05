@@ -84,6 +84,9 @@ public class Motorista {
         this.funcionario = funcionario;
     }
     
-    
+    @Override
+    public String toString(){
+        return nomeMotorista;
+    }
     
 }

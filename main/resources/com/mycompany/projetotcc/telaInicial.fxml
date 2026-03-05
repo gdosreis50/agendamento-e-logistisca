@@ -115,7 +115,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtFieldNumPedido" alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="175.0" GridPane.rowIndex="1">
+            <TextField fx:id="txtFieldNumPedido" alignment="TOP_RIGHT" onAction="#getPedido" prefHeight="30.0" prefWidth="175.0" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="180.0" />
                </GridPane.margin>

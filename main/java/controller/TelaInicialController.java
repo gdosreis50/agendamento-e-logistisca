@@ -5,27 +5,34 @@
 package controller;
 
 import entidades.Funcionario;
+import entidades.Motorista;
 import entidades.Pedido;
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import projetotcc.App;
 import service.FuncionarioService;
+import service.MotoristaService;
 import service.PedidoService;
 
 /**
@@ -50,7 +57,7 @@ public class TelaInicialController implements Initializable {
     @FXML
     private TextField txtFieldNumPedido;
     @FXML
-    private ComboBox<?> comboBoxMotorista;
+    private ComboBox<Motorista> comboBoxMotorista;
     @FXML
     private Label txtTipoProduto;
     @FXML
@@ -90,8 +97,11 @@ public class TelaInicialController implements Initializable {
      * Initializes the controller class.
      */
     
-    private List listaFuncionario; 
+    private List<Funcionario> listaFuncionario; 
+    private FilteredList<Funcionario> listaFiltradaFunc;
     
+    private List<Motorista> listaMotorista;
+    private FilteredList<Motorista> listaFiltradaMotorista;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,12 +112,103 @@ public class TelaInicialController implements Initializable {
             
             listaFuncionario = funcionarios.listarFuncionarios();
             
-            ObservableList<Funcionario> obsList = (ObservableList<Funcionario>) FXCollections.observableArrayList (listaFuncionario);
+            ObservableList<Funcionario> obsList = FXCollections.observableArrayList (listaFuncionario);
             
-            comboBoxFuncionario.setItems(obsList);
+            listaFiltradaFunc = new FilteredList<>(obsList, p -> true);
+            
+            comboBoxFuncionario.setItems(listaFiltradaFunc);
+            comboBoxFuncionario.setEditable(true);
+            
+            comboBoxFuncionario.getEditor().textProperty().addListener((obs,oldValue,newValue) -> {
+                listaFiltradaFunc.setPredicate(funcionario -> {
+                    if (newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                        
+                    return funcionario.getNomeFunc().toLowerCase().contains(newValue.toLowerCase());
+                        
+                });
+        
+                comboBoxFuncionario.show();
+            });
             
             
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        MotoristaService motoristas = new MotoristaService();
+        
+        // Ocorre exceção ao utilizar espaço (ASCCI 32). Mas, o filtro funciona para o primeiro nome.
+        // Excessão deixou de ocorrer, mas ainda há problemas com o Space. Agora, ao pressioná-lo, seleciona-se o item mais próximo à consulta
+        try {
+            listaMotorista = motoristas.listarMotorista();
+            
+            ObservableList<Motorista> motObsList = FXCollections.observableArrayList(listaMotorista);
+            
+            listaFiltradaMotorista = new FilteredList<>(motObsList, p -> true);
+            
+            comboBoxMotorista.setItems(listaFiltradaMotorista);
+            comboBoxMotorista.setEditable(true);
+            comboBoxMotorista.setVisibleRowCount(5);
+            
+            comboBoxMotorista.setConverter(new StringConverter<Motorista>(){
+                
+                public String toString(Motorista motorista){
+                    return motorista == null ? "" : motorista.getNomeMotorista();
+                }
+
+                @Override
+                public Motorista fromString(String string) {
+                    return comboBoxMotorista.getItems().stream()
+                            .filter(m -> m.getNomeMotorista().equals(string))
+                            .findFirst().orElse(null);
+                }
+            });
+            
+            comboBoxMotorista.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                
+                if(event.getCode() == KeyCode.SPACE){
+                    
+                    if(comboBoxMotorista.getEditor().isFocused()){
+                        IndexRange selection = comboBoxMotorista.getEditor().getSelection();
+                        
+                        if(selection.getLength() > 0){
+                            comboBoxMotorista.getEditor().replaceText(selection, " ");
+                        }
+                    }
+                }
+            });
+                        
+            
+            comboBoxMotorista.getEditor().textProperty().addListener((obs,oldValue, newValue)->{
+                
+                Platform.runLater(() -> {
+                    listaFiltradaMotorista.setPredicate(motorista -> {
+                    if(newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                    
+                    return motorista.getNomeMotorista().toLowerCase().contains(newValue.toLowerCase());
+                    
+                });
+                    
+                if (comboBoxMotorista.getEditor().isFocused() && !newValue.isEmpty()){
+                    comboBoxMotorista.show();
+                }
+                    
+            });
+        });
+            
+        comboBoxMotorista.getEditor().setOnKeyReleased(event -> {
+            if(event.getCode() != KeyCode.UP && event.getCode() != KeyCode.DOWN && event.getCode() != KeyCode.ENTER){
+                comboBoxMotorista.getEditor().positionCaret(comboBoxMotorista.getEditor().getText().length());
+            }
+        });
+            
+        } 
+        catch (Exception ex) {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -142,6 +243,7 @@ public class TelaInicialController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
             txtFieldNumPedido.setText("Não encontrado");
+            txtTipoProduto.setText("");
             txtCliente.setText("");
             txtLiberado.setText("");
             txtNumPaletes.setText("");
