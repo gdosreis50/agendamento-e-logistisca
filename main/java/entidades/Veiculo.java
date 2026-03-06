@@ -54,5 +54,9 @@ public class Veiculo {
         this.funcionario = funcionario;
     }
     
+    @Override
+    public String toString(){
+        return placa;
+    }
     
 }

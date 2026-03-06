@@ -4,11 +4,15 @@
  */
 package controller;
 
+import Dto.ChecklistDTO;
 import entidades.Funcionario;
 import entidades.Motorista;
 import entidades.Pedido;
+import entidades.Veiculo;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,6 +38,7 @@ import projetotcc.App;
 import service.FuncionarioService;
 import service.MotoristaService;
 import service.PedidoService;
+import service.VeiculoService;
 
 /**
  * FXML Controller class
@@ -69,6 +74,8 @@ public class TelaInicialController implements Initializable {
     @FXML
     private ComboBox<Funcionario> comboBoxFuncionario;
     @FXML
+    private ComboBox<Veiculo> comboBoxVeiculo;
+    @FXML
     private Label txtCalcTaraMin;
     @FXML
     private Label txtPlaca;
@@ -102,6 +109,9 @@ public class TelaInicialController implements Initializable {
     
     private List<Motorista> listaMotorista;
     private FilteredList<Motorista> listaFiltradaMotorista;
+    
+    private List<Veiculo> listaVeiculo;
+    private FilteredList<Veiculo> listaFiltradaVeiculo;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -212,6 +222,38 @@ public class TelaInicialController implements Initializable {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        VeiculoService veiculos = new VeiculoService();
+        
+        try {
+            
+            listaVeiculo = veiculos.listarVeiculo();
+            
+            ObservableList<Veiculo> veiObjList = FXCollections.observableArrayList(listaVeiculo);
+            
+            listaFiltradaVeiculo = new FilteredList<>(veiObjList, p -> true);
+            comboBoxVeiculo.setItems(listaFiltradaVeiculo);
+            comboBoxVeiculo.setEditable(true);
+            
+            comboBoxVeiculo.getEditor().textProperty().addListener((obs,oldValue,newValue) -> {
+                listaFiltradaVeiculo.setPredicate(veiculo -> {
+                    if (newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                        
+                    return veiculo.getPlaca().toLowerCase().contains(newValue.toLowerCase());
+                        
+                });
+        
+                comboBoxVeiculo.show();
+            });
+            
+            
+            
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }    
     
     @FXML
@@ -252,4 +294,14 @@ public class TelaInicialController implements Initializable {
             txtTipoProduto.setText("");
         }
     }
+    
+    @FXML
+    private void gerarCheckEHistorico (){
+        
+        ChecklistDTO check = new ChecklistDTO();
+        
+        check.setDataEmissao(Date.from(Instant.now()));
+    }
+    
+    
 }

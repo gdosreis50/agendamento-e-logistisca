@@ -91,7 +91,8 @@
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="397.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="883.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="616.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="278.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="4.0" />
@@ -128,7 +129,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="comboBoxMotorista" prefHeight="25.0" prefWidth="637.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ComboBox fx:id="comboBoxMotorista" prefHeight="25.0" prefWidth="476.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="130.0" />
                </GridPane.margin>
@@ -483,6 +484,17 @@
                   <Font name="Candara Light" size="18.0" />
                </font>
             </Label>
+            <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="62.0" text="Veículo" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboBoxVeiculo" prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="75.0" />
+               </GridPane.margin>
+            </ComboBox>
          </children>
       </GridPane>
    </center>
