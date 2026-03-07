@@ -8,6 +8,7 @@ import Dto.ChecklistDTO;
 import entidades.Funcionario;
 import entidades.Motorista;
 import entidades.Pedido;
+import entidades.Vagao;
 import entidades.Veiculo;
 import java.io.IOException;
 import java.net.URL;
@@ -478,5 +479,56 @@ public class TelaInicialController implements Initializable {
         
     }
     
+    @FXML
+    private void preencherVeiculo (){
+        if(comboBoxVeiculo.getValue() != null){
+            
+            Veiculo veiculo = comboBoxVeiculo.getValue();
+            
+            txtPlaca.setText(veiculo.getPlaca());
+            txtTipoVeic.setText(veiculo.getTipo());
+            
+            Vagao vagao1 = veiculo.getVagoes().get(0);    
+            txtPrimVagao.setText(vagao1.toString());
+            
+            Vagao vagao2 = veiculo.getVagoes().get(1);    
+            txtSegVagao.setText(vagao2.toString());
+            
+            Vagao vagao3 = veiculo.getVagoes().get(2);    
+            txtTercVagao.setText(vagao3.toString());
+            
+            }else{
+            txtTipoVeic.setText("");
+            txtPrimVagao.setText("");
+            txtSegVagao.setText("");
+            txtTercVagao.setText("");
+        }
+            
+            
+        }
+    
+    @FXML
+    private void limparCampos (){
+        txtFieldNumPedido.setText("");
+        txtTipoProduto.setText("");
+        txtCliente.setText("");
+        txtLiberado.setText("");
+        txtNumPaletes.setText("");
+        txtCalcTaraMin.setText("");
+        txtTransp.setText("");
+        txtTipoVeic.setText("");
+        txtPlaca.setText("");
+        txtPrimVagao.setText("");
+        txtSegVagao.setText("");
+        txtTercVagao.setText("");
+        txtCpfMot.setText("");
+        txtCnhMot.setText("");
+        txtCatCnh.setText("");
+        txtVencChn.setText("");
+        txtTel.setText("");
+        comboBoxMotorista.setValue(null);
+        comboBoxFuncionario.setValue(null);
+        comboBoxVeiculo.setValue(null);
+    }
     
 }

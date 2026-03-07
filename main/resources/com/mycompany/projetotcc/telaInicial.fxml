@@ -60,7 +60,7 @@
                   <Font name="Calibri Light" size="50.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="101.0" prefWidth="100.0" text="Limpar" textFill="#216e80">
+            <Button mnemonicParsing="false" onAction="#limparCampos" prefHeight="101.0" prefWidth="100.0" text="Limpar" textFill="#216e80">
                <font>
                   <Font name="Candara Bold" size="15.0" />
                </font>
@@ -490,7 +490,7 @@
                   <Font name="Candara Light" size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="comboBoxVeiculo" prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ComboBox fx:id="comboBoxVeiculo" onAction="#preencherVeiculo" prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="75.0" />
                </GridPane.margin>
