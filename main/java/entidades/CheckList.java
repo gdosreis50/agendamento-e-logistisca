@@ -7,7 +7,7 @@ public class CheckList {
     private int idCheckList;
     private Date dataEmissao;
     private Veiculo veiculo;
-    private Motorista motorista;
+    private Motorista motoristas;
     private Transportadora transportadora;
     private Funcionario funcionario;
 
@@ -36,11 +36,11 @@ public class CheckList {
     }
 
     public Motorista getMotorista() {
-        return motorista;
+        return motoristas;
     }
 
     public void setMotorista(Motorista motorista) {
-        this.motorista = motorista;
+        this.motoristas = motorista;
     }
 
     public Transportadora getTransportadora() {

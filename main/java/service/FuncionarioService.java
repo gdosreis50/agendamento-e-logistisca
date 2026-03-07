@@ -30,7 +30,7 @@ public class FuncionarioService {
         Type listType = new TypeToken<List<Funcionario>>(){}.getType();
         
         
-        //String resposta = getResposta.body();
+        System.out.println(getResposta.body());
         
         return gson.fromJson(getResposta.body(), listType);
     }

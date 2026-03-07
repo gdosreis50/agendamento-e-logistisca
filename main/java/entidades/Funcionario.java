@@ -1,8 +1,10 @@
 package entidades;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Funcionario {
 
-    
+    @SerializedName("idfuncionario")
     private int idFuncionario;
     private String nomeFunc;
     private String cpf;

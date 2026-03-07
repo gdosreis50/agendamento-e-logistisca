@@ -11,6 +11,7 @@ public class Motorista {
     private int idMotorista;
     
     private String nomeMotorista;
+    @SerializedName("cpfMot")
     private String cpf;
     private String cnh;
     private Date dataVencimentoCnh;
@@ -86,7 +87,7 @@ public class Motorista {
     
     @Override
     public String toString(){
-        return nomeMotorista;
+        return nomeMotorista + " | " + cpf;
     }
     
 }

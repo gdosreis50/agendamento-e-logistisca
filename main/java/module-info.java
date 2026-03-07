@@ -13,7 +13,7 @@ module projetotcc {
     
     opens controller to javafx.fxml;
     requires javafx.graphicsEmpty;
-    
+     
     requires java.logging;
      
 }

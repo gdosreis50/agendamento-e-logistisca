@@ -4,24 +4,24 @@
  */
 package Dto;
 
-import java.util.Date;
 
 /**
  *
  * @author work & college
  */
 public class ChecklistDTO {
-    private Date dataEmissao;
+    private String numPed;
+    private String dataEmissao;
     private int idveiculo;
-    private int idmotorista;
+    private int idmotoristas;
     private int idtransportadora;
     private int idfuncionario;
 
-    public Date getDataEmissao() {
+    public String getDataEmissao() {
         return dataEmissao;
     }
 
-    public void setDataEmissao(Date dataEmissao) {
+    public void setDataEmissao(String dataEmissao) {
         this.dataEmissao = dataEmissao;
     }
 
@@ -33,12 +33,12 @@ public class ChecklistDTO {
         this.idveiculo = idveiculo;
     }
 
-    public int getIdmotorista() {
-        return idmotorista;
+    public int getIdmotoristas() {
+        return idmotoristas;
     }
 
-    public void setIdmotorista(int idmotorista) {
-        this.idmotorista = idmotorista;
+    public void setIdmotoristas(int idmotorista) {
+        this.idmotoristas = idmotorista;
     }
 
     public int getIdtransportadora() {
@@ -57,5 +57,12 @@ public class ChecklistDTO {
         this.idfuncionario = idfuncionario;
     }
     
+    public String getNumPed() {
+        return numPed;
+    }
+
+    public void setNumPed(String numPed) {
+        this.numPed = numPed;
+    }
     
 }

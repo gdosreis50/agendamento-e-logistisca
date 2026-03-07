@@ -56,20 +56,13 @@ public class ChecklistService {
     
     
     // Cria novo checklist no BD e retorna true se der certo ou false para falha
-    public static boolean novoChecklist(Date dataEmissao, int idMotorista, int idTransportadora, int idVeiculo, int idFunc) throws Exception{
-        
-        ChecklistDTO check = new ChecklistDTO();
-        
-        check.setDataEmissao(dataEmissao);
-        check.setIdmotorista(idMotorista);
-        check.setIdveiculo(idVeiculo);
-        check.setIdtransportadora(idTransportadora);
+    public static boolean novoChecklist(ChecklistDTO check) throws Exception{
         
         
         Gson gson = new Gson();
         String request = gson.toJson(check);
         
-        //System.out.println(request);
+        System.out.println(request);
         
         
         HttpRequest novoCheck;

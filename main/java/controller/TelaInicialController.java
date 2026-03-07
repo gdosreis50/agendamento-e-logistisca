@@ -11,8 +11,10 @@ import entidades.Pedido;
 import entidades.Veiculo;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,6 +26,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ComboBox;
@@ -35,6 +38,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import projetotcc.App;
+import service.ChecklistService;
 import service.FuncionarioService;
 import service.MotoristaService;
 import service.PedidoService;
@@ -129,6 +133,34 @@ public class TelaInicialController implements Initializable {
             comboBoxFuncionario.setItems(listaFiltradaFunc);
             comboBoxFuncionario.setEditable(true);
             
+            comboBoxFuncionario.setConverter(new StringConverter<Funcionario>() {
+                @Override
+                public String toString(Funcionario funcionario) {
+                    return funcionario == null ? "" : funcionario.getNomeFunc();
+                }
+
+                @Override
+                public Funcionario fromString(String string) {
+                    return comboBoxFuncionario.getItems().stream()
+                            .filter(f -> f.getNomeFunc().equals(string))
+                            .findFirst().orElse(null);
+                }
+            });
+            
+            comboBoxFuncionario.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                
+                if(event.getCode() == KeyCode.SPACE){
+                    
+                    if(comboBoxFuncionario.getEditor().isFocused()){
+                        IndexRange selection = comboBoxFuncionario.getEditor().getSelection();
+                        
+                        if(selection.getLength() > 0){
+                            comboBoxFuncionario.getEditor().replaceText(selection, " ");
+                        }
+                    }
+                }
+            });
+            
             comboBoxFuncionario.getEditor().textProperty().addListener((obs,oldValue,newValue) -> {
                 listaFiltradaFunc.setPredicate(funcionario -> {
                     if (newValue == null || newValue.isEmpty()){
@@ -139,8 +171,19 @@ public class TelaInicialController implements Initializable {
                         
                 });
         
-                comboBoxFuncionario.show();
+                if (comboBoxMotorista.getEditor().isFocused() && !newValue.isEmpty()){
+                    comboBoxMotorista.show();
+                }
+                    
             });
+        
+            
+            comboBoxMotorista.getEditor().setOnKeyReleased(event -> {
+            if(event.getCode() != KeyCode.UP && event.getCode() != KeyCode.DOWN && event.getCode() != KeyCode.ENTER){
+                comboBoxMotorista.getEditor().positionCaret(comboBoxMotorista.getEditor().getText().length());
+            }
+        });
+        
             
             
         } 
@@ -234,6 +277,20 @@ public class TelaInicialController implements Initializable {
             comboBoxVeiculo.setItems(listaFiltradaVeiculo);
             comboBoxVeiculo.setEditable(true);
             
+            comboBoxVeiculo.setConverter(new StringConverter<Veiculo>(){
+                @Override
+                public String toString(Veiculo veiculo) {
+                    return veiculo == null ? "" : veiculo.getPlaca();
+                }
+
+                @Override
+                public Veiculo fromString(String string) {
+                    return comboBoxVeiculo.getItems().stream()
+                            .filter(v -> v.getPlaca().equals(string))
+                            .findFirst().orElse(null);
+                }
+            });
+            
             comboBoxVeiculo.getEditor().textProperty().addListener((obs,oldValue,newValue) -> {
                 listaFiltradaVeiculo.setPredicate(veiculo -> {
                     if (newValue == null || newValue.isEmpty()){
@@ -271,16 +328,34 @@ public class TelaInicialController implements Initializable {
             Pedido pedido = new Pedido();
             pedido = request.getPedido(numPed);
             
-            int tara = pedido.getNumPaletes();
+            if (pedido.getNumPaletes() != 0){
             
-            tara = tara * 1000;
+                int tara = pedido.getNumPaletes();
+                
+                tara = tara * 1000;
             
-            txtCliente.setText(pedido.getNomeCliente());
-            txtLiberado.setText(pedido.getStatusPed());
-            txtNumPaletes.setText(String.valueOf(pedido.getNumPaletes()));
-            txtCalcTaraMin.setText(String.valueOf(tara));
-            txtTransp.setText(pedido.getTransportadora());
-            txtTipoProduto.setText("Carolina Soil");
+                txtCliente.setText(pedido.getNomeCliente());
+                txtLiberado.setText(pedido.getStatusPed());
+                txtNumPaletes.setText(String.valueOf(pedido.getNumPaletes()));
+                txtCalcTaraMin.setText(String.valueOf(tara));
+                txtTransp.setText(pedido.getTransportadora());
+                txtTipoProduto.setText("Carolina Soil");
+            }else{
+                txtFieldNumPedido.setText("Não encontrado");
+                txtTipoProduto.setText("");
+                txtCliente.setText("");
+                txtLiberado.setText("");
+                txtNumPaletes.setText("");
+                txtCalcTaraMin.setText("");
+                txtTransp.setText("");
+                txtTipoProduto.setText("");
+            }
+            
+            
+            
+           
+            
+            
             
         } catch (Exception ex) {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
@@ -298,9 +373,109 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void gerarCheckEHistorico (){
         
+        if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("Coloque um Pedido Valido, Seu nome, Motorista e Veículo!");
+                
+            alert.show();
+                
+            return;
+        }
+        
+        
         ChecklistDTO check = new ChecklistDTO();
         
-        check.setDataEmissao(Date.from(Instant.now()));
+        check.setDataEmissao(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        
+        check.setNumPed(txtFieldNumPedido.getText());
+        check.setIdmotoristas(comboBoxMotorista.getValue().getIdMotorista());
+        check.setIdfuncionario(comboBoxFuncionario.getValue().getIdFuncionario());
+        check.setIdveiculo(comboBoxVeiculo.getValue().getIdVeiculo());
+        check.setIdtransportadora(1);
+        
+        ChecklistService checklistService = new ChecklistService();
+        
+        try {
+            boolean salvo = checklistService.novoChecklist(check);
+            
+            if  (salvo) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Carregamento Salvo");
+                
+                alert.show();
+                
+                txtFieldNumPedido.setText("");
+                txtTipoProduto.setText("");
+                txtCliente.setText("");
+                txtLiberado.setText("");
+                txtNumPaletes.setText("");
+                txtCalcTaraMin.setText("");
+                txtTransp.setText("");
+                txtTipoProduto.setText("");
+                comboBoxMotorista.setValue(null);
+                comboBoxFuncionario.setValue(null);
+                comboBoxVeiculo.setValue(null);
+                
+            }else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Algo deu errado!");
+                
+                alert.show();
+                
+                txtFieldNumPedido.setText("");
+                txtTipoProduto.setText("");
+                txtCliente.setText("");
+                txtLiberado.setText("");
+                txtNumPaletes.setText("");
+                txtCalcTaraMin.setText("");
+                txtTransp.setText("");
+                txtTipoProduto.setText("");
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Algo deu muito errado! \n Coloque um Pedido Valido, Seu nome, Motorista e Veículo!");
+                
+                alert.show();
+        }
+        
+        
+        
+    }
+    
+    @FXML
+    private void preencherMot (){
+        
+        if(comboBoxMotorista.getValue() != null){
+            Motorista motorista = comboBoxMotorista.getValue();
+            
+            txtCpfMot.setText(motorista.getCpf());
+            txtCnhMot.setText(motorista.getCnh());
+            txtCatCnh.setText(motorista.getCategoriaCnh());
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+            txtVencChn.setText(format.format(motorista.getDataVencimentoCnh()));
+        
+            txtTel.setText(motorista.getTelefone());
+        }else{
+            txtCpfMot.setText("");
+            txtCnhMot.setText("");
+            txtCatCnh.setText("");
+            txtVencChn.setText("");
+            txtTel.setText("");
+        }
+        
+        
     }
     
     
