@@ -62,7 +62,7 @@ public class ChecklistService {
         Gson gson = new Gson();
         String request = gson.toJson(check);
         
-        System.out.println(request);
+        //System.out.println(request);
         
         
         HttpRequest novoCheck;

@@ -104,10 +104,20 @@ public class TelaInicialController implements Initializable {
     private Label txtVencChn;
     @FXML
     private Label txtTel;
-
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Label txtCompMin;
+    @FXML
+    private Label txtLargMin;
+    @FXML
+    private Label txtCintaMin;
+    @FXML
+    private Label txtqtdPaletevag1;
+    @FXML
+    private Label txtqtdPaletevag2;
+    @FXML
+    private Label txtqtdPaletevag3;
+    @FXML
+    private Label txtTaraTotal;
     
     private List<Funcionario> listaFuncionario; 
     private FilteredList<Funcionario> listaFiltradaFunc;
@@ -117,6 +127,15 @@ public class TelaInicialController implements Initializable {
     
     private List<Veiculo> listaVeiculo;
     private FilteredList<Veiculo> listaFiltradaVeiculo;
+    
+    private boolean dataCnh;
+    private boolean capacidade;
+    private boolean taraMaxima;
+    
+    
+    /**
+     * Initializes the controller class.
+     */
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -332,8 +351,18 @@ public class TelaInicialController implements Initializable {
             if (pedido.getNumPaletes() != 0){
             
                 int tara = pedido.getNumPaletes();
+                int cintas = pedido.getNumPaletes();
+                double comprimento = pedido.getNumPaletes();
+                final double LARGURA = 2.5;
                 
+                //System.out.println(LARGURA);
+                
+                comprimento = (comprimento/2) * 1.05;
+                cintas = (cintas/2) + 2;
                 tara = tara * 1000;
+                
+                String compFormatado = String.format("%.2f", comprimento);
+                String largFormatada = String.format("%.2f", LARGURA);
             
                 txtCliente.setText(pedido.getNomeCliente());
                 txtLiberado.setText(pedido.getStatusPed());
@@ -341,6 +370,9 @@ public class TelaInicialController implements Initializable {
                 txtCalcTaraMin.setText(String.valueOf(tara));
                 txtTransp.setText(pedido.getTransportadora());
                 txtTipoProduto.setText("Carolina Soil");
+                txtLargMin.setText(largFormatada);
+                txtCompMin.setText(compFormatado);
+                txtCintaMin.setText(Integer.toString(cintas));
             }else{
                 txtFieldNumPedido.setText("Não encontrado");
                 txtTipoProduto.setText("");
@@ -416,7 +448,19 @@ public class TelaInicialController implements Initializable {
                 txtNumPaletes.setText("");
                 txtCalcTaraMin.setText("");
                 txtTransp.setText("");
-                txtTipoProduto.setText("");
+                txtTipoVeic.setText("");
+                txtPlaca.setText("");
+                txtPrimVagao.setText("");
+                txtSegVagao.setText("");
+                txtTercVagao.setText("");
+                txtCpfMot.setText("");
+                txtCnhMot.setText("");
+                txtCatCnh.setText("");
+                txtVencChn.setText("");
+                txtTel.setText("");
+                txtCompMin.setText("");
+                txtLargMin.setText("");
+                txtCintaMin.setText("");
                 comboBoxMotorista.setValue(null);
                 comboBoxFuncionario.setValue(null);
                 comboBoxVeiculo.setValue(null);
@@ -436,7 +480,22 @@ public class TelaInicialController implements Initializable {
                 txtNumPaletes.setText("");
                 txtCalcTaraMin.setText("");
                 txtTransp.setText("");
-                txtTipoProduto.setText("");
+                txtTipoVeic.setText("");
+                txtPlaca.setText("");
+                txtPrimVagao.setText("");
+                txtSegVagao.setText("");
+                txtTercVagao.setText("");
+                txtCpfMot.setText("");
+                txtCnhMot.setText("");
+                txtCatCnh.setText("");
+                txtVencChn.setText("");
+                txtTel.setText("");
+                txtCompMin.setText("");
+                txtLargMin.setText("");
+                txtCintaMin.setText("");
+                comboBoxMotorista.setValue(null);
+                comboBoxFuncionario.setValue(null);
+                comboBoxVeiculo.setValue(null);
             }
             
         } catch (Exception ex) {
@@ -448,6 +507,30 @@ public class TelaInicialController implements Initializable {
                 alert.setContentText("Algo deu muito errado! \n Coloque um Pedido Valido, Seu nome, Motorista e Veículo!");
                 
                 alert.show();
+                
+                txtFieldNumPedido.setText("");
+                txtTipoProduto.setText("");
+                txtCliente.setText("");
+                txtLiberado.setText("");
+                txtNumPaletes.setText("");
+                txtCalcTaraMin.setText("");
+                txtTransp.setText("");
+                txtTipoVeic.setText("");
+                txtPlaca.setText("");
+                txtPrimVagao.setText("");
+                txtSegVagao.setText("");
+                txtTercVagao.setText("");
+                txtCpfMot.setText("");
+                txtCnhMot.setText("");
+                txtCatCnh.setText("");
+                txtVencChn.setText("");
+                txtTel.setText("");
+                txtCompMin.setText("");
+                txtLargMin.setText("");
+                txtCintaMin.setText("");
+                comboBoxMotorista.setValue(null);
+                comboBoxFuncionario.setValue(null);
+                comboBoxVeiculo.setValue(null);
         }
         
         
@@ -490,18 +573,37 @@ public class TelaInicialController implements Initializable {
             
             Vagao vagao1 = veiculo.getVagoes().get(0);    
             txtPrimVagao.setText(vagao1.toString());
+            double comp1 = vagao1.getComprimento();
+            double larg1 = vagao1.getLargura();
+            int tara = veiculo.getTara();
+            txtqtdPaletevag1.setText(qtdPalete(comp1, larg1) + " Paletes");
             
             Vagao vagao2 = veiculo.getVagoes().get(1);    
             txtSegVagao.setText(vagao2.toString());
+            double comp2 = vagao2.getComprimento();
+            double larg2 = vagao2.getLargura();
+            
+            txtqtdPaletevag2.setText(qtdPalete(comp2, larg2) + " Paletes");
             
             Vagao vagao3 = veiculo.getVagoes().get(2);    
             txtTercVagao.setText(vagao3.toString());
+            double comp3 = vagao3.getComprimento();
+            double larg3 = vagao3.getLargura();
+            
+            txtqtdPaletevag3.setText(qtdPalete(comp3, larg3) + " Paletes");
+            
+            txtTaraTotal.setText(Integer.toString(tara));
             
             }else{
             txtTipoVeic.setText("");
             txtPrimVagao.setText("");
             txtSegVagao.setText("");
             txtTercVagao.setText("");
+            txtPlaca.setText("");
+            txtqtdPaletevag1.setText("");
+            txtqtdPaletevag2.setText("");
+            txtqtdPaletevag3.setText("");
+            txtTaraTotal.setText("");
         }
             
             
@@ -510,25 +612,45 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void limparCampos (){
         txtFieldNumPedido.setText("");
-        txtTipoProduto.setText("");
-        txtCliente.setText("");
-        txtLiberado.setText("");
-        txtNumPaletes.setText("");
-        txtCalcTaraMin.setText("");
-        txtTransp.setText("");
-        txtTipoVeic.setText("");
-        txtPlaca.setText("");
-        txtPrimVagao.setText("");
-        txtSegVagao.setText("");
-        txtTercVagao.setText("");
-        txtCpfMot.setText("");
-        txtCnhMot.setText("");
-        txtCatCnh.setText("");
-        txtVencChn.setText("");
-        txtTel.setText("");
-        comboBoxMotorista.setValue(null);
-        comboBoxFuncionario.setValue(null);
-        comboBoxVeiculo.setValue(null);
+                txtTipoProduto.setText("");
+                txtCliente.setText("");
+                txtLiberado.setText("");
+                txtNumPaletes.setText("");
+                txtCalcTaraMin.setText("");
+                txtTransp.setText("");
+                txtTipoVeic.setText("");
+                txtPlaca.setText("");
+                txtPrimVagao.setText("");
+                txtSegVagao.setText("");
+                txtTercVagao.setText("");
+                txtCpfMot.setText("");
+                txtCnhMot.setText("");
+                txtCatCnh.setText("");
+                txtVencChn.setText("");
+                txtTel.setText("");
+                txtCompMin.setText("");
+                txtLargMin.setText("");
+                txtCintaMin.setText("");
+                txtqtdPaletevag1.setText("");
+                txtqtdPaletevag2.setText("");
+                txtqtdPaletevag3.setText("");
+                txtTaraTotal.setText("");
+                comboBoxMotorista.setValue(null);
+                comboBoxFuncionario.setValue(null);
+                comboBoxVeiculo.setValue(null);
     }
-    
+
+    private String qtdPalete (Double comp, Double larg){
+        Double qtdCompToInt = (comp/1.05);
+        int comprimento = qtdCompToInt.intValue();
+        
+        Double qtdLargToInt = (larg/1.25);
+        int largura = qtdLargToInt.intValue();
+        
+        int qtdDimensao = comprimento * largura;
+        
+        String resposta = Integer.toString(qtdDimensao);
+        
+        return resposta;
+    } 
 }

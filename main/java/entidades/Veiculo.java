@@ -12,6 +12,7 @@ public class Veiculo {
     private Funcionario funcionario;
     @SerializedName("vagoes")
     private List<Vagao> vagoes;
+    private int tara;
 
     public List<Vagao> getVagoes() {
         return vagoes;
@@ -52,6 +53,14 @@ public class Veiculo {
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public int getTara() {
+        return tara;
+    }
+
+    public void setTara(int tara) {
+        this.tara = tara;
     }
     
     @Override

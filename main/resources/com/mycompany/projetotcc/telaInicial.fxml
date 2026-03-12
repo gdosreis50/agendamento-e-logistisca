@@ -16,7 +16,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
    <bottom>
-      <ButtonBar fx:id="barraBt" prefHeight="47.0" prefWidth="1213.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
+      <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
          <buttons>
             <Button fx:id="btViewMotorista" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
                <font>
@@ -47,13 +47,16 @@
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
          <padding>
             <Insets right="360.0" />
          </padding>
       </ButtonBar>
    </bottom>
    <top>
-      <HBox fillHeight="false" prefHeight="101.0" prefWidth="1320.0" style="-fx-background-color: #59c977;" BorderPane.alignment="CENTER">
+      <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1290.0" style="-fx-background-color: #59c977;" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="571.0" text="Agendamento e Check-List" textAlignment="RIGHT">
                <font>
@@ -68,15 +71,7 @@
                   <Insets left="330.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#getPedido" prefHeight="101.0" prefWidth="104.0" text="Procurar Pedido" textAlignment="JUSTIFY" textFill="#489005">
-               <font>
-                  <Font name="Candara Bold" size="12.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#gerarCheckEHistorico" prefHeight="104.0" prefWidth="147.0" text="Imprimir">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#gerarCheckEHistorico" prefHeight="104.0" prefWidth="110.0" text="Imprimir">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
@@ -87,25 +82,28 @@
          </children>
       </HBox>
    </top>
-   <center>
+   <right>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="397.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="400.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="616.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="278.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="265.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="4.0" />
           <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="261.0" minHeight="6.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="513.0" minHeight="0.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="513.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="6.0" prefHeight="38.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="219.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="174.0" text="Número do Pedido" GridPane.rowIndex="1">
@@ -116,9 +114,9 @@
                   <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtFieldNumPedido" alignment="TOP_RIGHT" onAction="#getPedido" prefHeight="30.0" prefWidth="175.0" GridPane.rowIndex="1">
+            <TextField fx:id="txtFieldNumPedido" alignment="TOP_RIGHT" onAction="#getPedido" prefHeight="30.0" prefWidth="191.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="180.0" />
+                  <Insets left="180.0" right="75.0" />
                </GridPane.margin>
             </TextField>
             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="119.0" text="Motorista" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -163,7 +161,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="txtTipoProduto" alignment="CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="397.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="3">
+            <Label fx:id="txtTipoProduto" alignment="CENTER" contentDisplay="TOP" prefHeight="32.0" prefWidth="206.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="190.0" />
                </GridPane.margin>
@@ -174,7 +172,7 @@
                   <Insets top="10.0" />
                </padding>
             </Label>
-            <Label fx:id="txtLiberado" alignment="CENTER" prefHeight="17.0" prefWidth="397.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="4">
+            <Label fx:id="txtLiberado" alignment="CENTER" prefHeight="32.0" prefWidth="205.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="4">
                <font>
                   <Font name="Candara Light" size="18.0" />
                </font>
@@ -193,7 +191,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="txtNumPaletes" alignment="CENTER" prefHeight="17.0" prefWidth="402.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="5">
+            <Label fx:id="txtNumPaletes" alignment="CENTER" prefHeight="32.0" prefWidth="175.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="220.0" />
                </GridPane.margin>
@@ -212,7 +210,7 @@
                   <Font name="Candara Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="txtCliente" alignment="CENTER" prefHeight="17.0" prefWidth="399.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="6">
+            <Label fx:id="txtCliente" alignment="CENTER" prefHeight="32.0" prefWidth="205.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="190.0" />
                </GridPane.margin>
@@ -223,7 +221,7 @@
                   <Font name="Candara Light" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="22.0" prefWidth="128.0" text="Emissor" GridPane.rowIndex="9">
+            <Label prefHeight="22.0" prefWidth="128.0" text="Emissor" GridPane.rowIndex="12">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
@@ -231,7 +229,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="comboBoxFuncionario" prefHeight="25.0" prefWidth="397.0" GridPane.rowIndex="9">
+            <ComboBox fx:id="comboBoxFuncionario" prefHeight="35.0" prefWidth="202.0" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="190.0" />
                </GridPane.margin>
@@ -247,7 +245,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="txtCalcTaraMin" alignment="CENTER" prefHeight="17.0" prefWidth="409.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="7">
+            <Label fx:id="txtCalcTaraMin" alignment="CENTER" prefHeight="32.0" prefWidth="175.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="220.0" />
                </GridPane.margin>
@@ -368,7 +366,7 @@
                   <Font name="Candara Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="txtTransp" alignment="CENTER" prefHeight="17.0" prefWidth="408.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="8">
+            <Label fx:id="txtTransp" alignment="CENTER" prefHeight="32.0" prefWidth="203.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="190.0" />
                </GridPane.margin>
@@ -467,15 +465,15 @@
             </Label>
             <Label prefHeight="22.0" prefWidth="73.0" text="Telefone" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <GridPane.margin>
-                  <Insets bottom="150.0" left="250.0" />
+                  <Insets left="32.0" />
                </GridPane.margin>
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="txtTel" alignment="CENTER" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Label fx:id="txtTel" alignment="CENTER" prefHeight="32.0" prefWidth="149.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <GridPane.margin>
-                  <Insets bottom="150.0" left="330.0" />
+                  <Insets left="110.0" />
                </GridPane.margin>
                <padding>
                   <Insets top="10.0" />
@@ -495,7 +493,139 @@
                   <Insets left="75.0" />
                </GridPane.margin>
             </ComboBox>
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getPedido" prefHeight="35.0" prefWidth="74.0" text="Procurar" textAlignment="JUSTIFY" textFill="#489005" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Candara Bold" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="330.0" />
+               </GridPane.margin>
+            </Button>
+            <Label text="Comprimento Mínimo" GridPane.rowIndex="9">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="txtCompMin" alignment="CENTER" prefHeight="17.0" prefWidth="167.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="9">
+               <GridPane.margin>
+                  <Insets left="225.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Largura Mínima" GridPane.rowIndex="10">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="txtLargMin" alignment="CENTER" prefHeight="17.0" prefWidth="167.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="10">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="225.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Cintas Mínimas" GridPane.rowIndex="11">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="txtCintaMin" alignment="CENTER" prefHeight="17.0" prefWidth="167.0" style="-fx-background-color: #c9c7c7;" GridPane.rowIndex="11">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="225.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Capacidade Máx" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtqtdPaletevag1" alignment="CENTER" prefHeight="32.0" prefWidth="122.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Capacidade Máx" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtqtdPaletevag2" alignment="CENTER" prefHeight="32.0" prefWidth="122.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Capacidade Máx" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtqtdPaletevag3" alignment="CENTER" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="22.0" prefWidth="118.0" text="Tara Total" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="32.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="txtTaraTotal" alignment="CENTER" prefHeight="32.0" prefWidth="148.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
-   </center>
+   </right>
 </BorderPane>
