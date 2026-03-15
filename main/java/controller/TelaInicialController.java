@@ -128,9 +128,6 @@ public class TelaInicialController implements Initializable {
     private List<Veiculo> listaVeiculo;
     private FilteredList<Veiculo> listaFiltradaVeiculo;
     
-    private boolean dataCnh;
-    private boolean capacidade;
-    private boolean taraMaxima;
     
     
     /**

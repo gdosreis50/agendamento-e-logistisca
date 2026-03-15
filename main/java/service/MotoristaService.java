@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
@@ -18,7 +19,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.time.LocalDate;
 import java.util.Date;
+import util.LocalDateAdapter;
 
 
 
@@ -40,7 +43,7 @@ public class MotoristaService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getListMotorista, BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         Type listType = new TypeToken<List<Motorista>>(){}.getType();
         
         
@@ -60,7 +63,7 @@ public class MotoristaService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getListMotorista, BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         
         Type motorista = new TypeToken<Motorista>(){}.getType();
         
@@ -69,21 +72,11 @@ public class MotoristaService {
     
     
     // Cria novo motorista no BD e retorna true se der certo ou false para falha
-    public static boolean novoMotorista(String nome, String cpf, String cnh, Date dataVenc, String catCnh, String telefone, int idFunc) throws Exception{
+    public static boolean novoMotorista(MotoristaDTO motoristaDTO) throws Exception{
         
         
-        MotoristaDTO motorista = new MotoristaDTO();
-        
-        motorista.setNomeMotorista(nome);
-        motorista.setCpf(cpf);
-        motorista.setCnh(cnh);
-        motorista.setDataVencimentoCnh(dataVenc);
-        motorista.setCategoriaCnh(catCnh);
-        motorista.setTelefone(telefone);
-        motorista.setIdfuncionario(idFunc);
-        
-        Gson gson = new Gson();
-        String request = gson.toJson(motorista);
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        String request = gson.toJson(motoristaDTO);
         
         //System.out.println(request);
         
@@ -107,20 +100,10 @@ public class MotoristaService {
     }
     
     // Atualiza dado motorista. Retorna true se bem sucedido e false para falha
-    public static boolean atualizaMotorista(int idMotorista, String nome, String cpf, String cnh, Date dataVenc, String catCnh, String telefone, int idFunc) throws Exception{
+    public static boolean atualizaMotorista(int idMotorista, MotoristaDTO motoristaDTO) throws Exception{
         
-        MotoristaDTO motorista = new MotoristaDTO();
-        
-        motorista.setNomeMotorista(nome);
-        motorista.setCpf(cpf);
-        motorista.setCnh(cnh);
-        motorista.setDataVencimentoCnh(dataVenc);
-        motorista.setCategoriaCnh(catCnh);
-        motorista.setTelefone(telefone);
-        motorista.setIdfuncionario(idFunc);
-        
-        Gson gson = new Gson();
-        String request = gson.toJson(motorista);
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        String request = gson.toJson(motoristaDTO);
         
         //System.out.print(request);
         

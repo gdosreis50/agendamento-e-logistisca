@@ -10,6 +10,8 @@ module projetotcc {
     
     opens entidades to com.google.gson;
     opens Dto to com.google.gson;
+
+    
     
     opens controller to javafx.fxml;
     requires javafx.graphicsEmpty;

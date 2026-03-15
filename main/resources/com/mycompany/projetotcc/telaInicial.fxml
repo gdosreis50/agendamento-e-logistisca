@@ -18,7 +18,7 @@
    <bottom>
       <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
          <buttons>
-            <Button fx:id="btViewMotorista" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
+            <Button fx:id="btViewMotorista" mnemonicParsing="false" onAction="#switchToMotoristas" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -82,17 +82,17 @@
          </children>
       </HBox>
    </top>
-   <right>
+   <left>
       <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="400.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="616.0" />
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="400.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="616.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="265.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="4.0" />
-          <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="261.0" minHeight="6.0" prefHeight="9.0" vgrow="SOMETIMES" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="4.0" />
+            <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="261.0" minHeight="6.0" prefHeight="9.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="513.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
@@ -104,7 +104,7 @@
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+         </rowConstraints>
          <children>
             <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="174.0" text="Número do Pedido" GridPane.rowIndex="1">
                <font>
@@ -114,9 +114,9 @@
                   <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtFieldNumPedido" alignment="TOP_RIGHT" onAction="#getPedido" prefHeight="30.0" prefWidth="191.0" GridPane.rowIndex="1">
+            <TextField fx:id="txtFieldNumPedido" alignment="TOP_RIGHT" onAction="#getPedido" prefHeight="30.0" prefWidth="130.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="180.0" right="75.0" />
+                  <Insets left="180.0" right="100.0" />
                </GridPane.margin>
             </TextField>
             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="119.0" text="Motorista" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -135,19 +135,23 @@
             <Separator prefWidth="200.0" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
-               </GridPane.margin></Separator>
+               </GridPane.margin>
+            </Separator>
             <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
-               </GridPane.margin></Separator>
+               </GridPane.margin>
+            </Separator>
             <Separator prefWidth="200.0">
                <padding>
                   <Insets left="10.0" />
-               </padding></Separator>
+               </padding>
+            </Separator>
             <Separator prefWidth="200.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
-               </GridPane.margin></Separator>
+               </GridPane.margin>
+            </Separator>
             <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="175.0" text="Tipo de Produto" textAlignment="RIGHT" GridPane.rowIndex="3">
                <font>
                   <Font name="Candara Bold" size="18.0" />
@@ -493,7 +497,7 @@
                   <Insets left="75.0" />
                </GridPane.margin>
             </ComboBox>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getPedido" prefHeight="35.0" prefWidth="74.0" text="Procurar" textAlignment="JUSTIFY" textFill="#489005" GridPane.rowIndex="1">
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getPedido" prefHeight="35.0" text="Procurar" textAlignment="JUSTIFY" textFill="#489005" GridPane.rowIndex="1">
                <font>
                   <Font name="Candara Bold" size="12.0" />
                </font>
@@ -627,5 +631,5 @@
             </Label>
          </children>
       </GridPane>
-   </right>
+   </left>
 </BorderPane>

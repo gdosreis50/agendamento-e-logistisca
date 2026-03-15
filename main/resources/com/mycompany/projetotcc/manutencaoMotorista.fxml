@@ -2,15 +2,278 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <Label text="Secondary View" />
-        <Button fx:id="secondaryButton" text="Switch to Primary View" />
-    </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-</VBox>
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManutencaoMotoristaController">
+   <bottom>
+      <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
+         <buttons>
+            <Button fx:id="btViewCheck" mnemonicParsing="false" onAction="#switchToCheck" style="-fx-background-color: #000000;" text="Checklist" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewVeiculo" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Veículos" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewTransportadora" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Transportadora" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewAgendamento" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewPedidos" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Pedidos" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </buttons>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets right="360.0" />
+         </padding>
+      </ButtonBar>
+   </bottom>
+   <top>
+      <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1290.0" style="-fx-background-color: #59c977;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="571.0" text="Motoristas" textAlignment="RIGHT">
+               <font>
+                  <Font name="Calibri Light" size="50.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#limparCampos" prefHeight="101.0" prefWidth="100.0" text="Limpar" textFill="#216e80">
+               <font>
+                  <Font name="Candara Bold" size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="330.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#salvarMot" prefHeight="104.0" prefWidth="110.0" text="Salvar">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="400.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="587.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="4.0" />
+            <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="261.0" minHeight="6.0" prefHeight="9.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="513.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="6.0" prefHeight="38.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="119.0" text="Motorista" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="comboBoxMotorista" onAction="#preencherMot" prefHeight="25.0" prefWidth="476.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Separator prefWidth="200.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Separator>
+            <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Separator>
+            <Separator prefWidth="200.0">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Separator>
+            <Separator prefWidth="200.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label prefHeight="22.0" prefWidth="84.0" text="CNH" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="BASELINE_LEFT" prefHeight="22.0" prefWidth="134.0" text="Nome" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="22.0" prefWidth="148.0" text="CPF" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="22.0" prefWidth="128.0" text="Emissor" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="comboBoxFuncionario" prefHeight="35.0" prefWidth="202.0" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="190.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </ComboBox>
+            <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="10.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="31.0" prefWidth="247.0" text="Dados do Motorista" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Candara Bold" size="26.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="10.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label prefHeight="22.0" prefWidth="144.0" text="Vencimento CNH" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="22.0" prefWidth="124.0" text="Categoria CNH" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="22.0" prefWidth="84.0" text="Telefone" textAlignment="RIGHT" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="textFieldNome" prefHeight="25.0" prefWidth="332.0" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="115.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="textFieldCpf" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="125.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="textFieldTelefone" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="textFieldCnh" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="190.0" right="120.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="textFieldCatCnh" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="170.0" right="330.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TextField>
+            <DatePicker fx:id="dateSelector" prefHeight="25.0" prefWidth="466.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="200.0" right="120.0" />
+               </GridPane.margin>
+            </DatePicker>
+         </children>
+      </GridPane>
+   </center>
+   <right>
+      <VBox prefHeight="569.0" prefWidth="377.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="377.0" text="Lista de Motoristas">
+               <font>
+                  <Font name="Candara Bold" size="20.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tabelaMot" onMouseClicked="#carregaDadosDaTabela" prefHeight="549.0" prefWidth="377.0" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

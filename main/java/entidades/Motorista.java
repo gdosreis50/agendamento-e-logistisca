@@ -1,6 +1,7 @@
 package entidades;
 
 import com.google.gson.annotations.SerializedName;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -14,7 +15,7 @@ public class Motorista {
     @SerializedName("cpfMot")
     private String cpf;
     private String cnh;
-    private Date dataVencimentoCnh;
+    private LocalDate dataVencimentoCnh;
     private String categoriaCnh;
     private String telefone;
     private Funcionario funcionario;
@@ -45,11 +46,11 @@ public class Motorista {
         this.cnh = cnh;
     }
 
-    public Date getDataVencimentoCnh() {
+    public LocalDate getDataVencimentoCnh() {
         return dataVencimentoCnh;
     }
 
-    public void setDataVencimentoCnh(Date dataVencimentoCnh) {
+    public void setDataVencimentoCnh(LocalDate dataVencimentoCnh) {
         this.dataVencimentoCnh = dataVencimentoCnh;
     }
 

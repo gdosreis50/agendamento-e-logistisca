@@ -1,6 +1,7 @@
 
 package Dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class MotoristaDTO {
@@ -8,8 +9,10 @@ public class MotoristaDTO {
     private String nomeMotorista;
     private String cpf;
     private String cnh;
-    private Date dataVencimentoCnh;
+    private LocalDate dataVencimentoCnh;
     private String categoriaCnh;
+    private String telefone;
+    private int idfuncionario;
 
     public String getNomeMotorista() {
         return nomeMotorista;
@@ -35,11 +38,11 @@ public class MotoristaDTO {
         this.cnh = cnh;
     }
 
-    public Date getDataVencimentoCnh() {
+    public LocalDate getDataVencimentoCnh() {
         return dataVencimentoCnh;
     }
 
-    public void setDataVencimentoCnh(Date dataVencimentoCnh) {
+    public void setDataVencimentoCnh(LocalDate dataVencimentoCnh) {
         this.dataVencimentoCnh = dataVencimentoCnh;
     }
 
@@ -66,6 +69,5 @@ public class MotoristaDTO {
     public void setIdfuncionario(int idfuncionario) {
         this.idfuncionario = idfuncionario;
     }
-    private String telefone;
-    private int idfuncionario;
+    
 }
