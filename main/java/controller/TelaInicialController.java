@@ -5,6 +5,7 @@
 package controller;
 
 import Dto.ChecklistDTO;
+import entidades.CheckList;
 import entidades.Funcionario;
 import entidades.Motorista;
 import entidades.Pedido;
@@ -16,12 +17,15 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -30,9 +34,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -118,6 +125,14 @@ public class TelaInicialController implements Initializable {
     private Label txtqtdPaletevag3;
     @FXML
     private Label txtTaraTotal;
+    @FXML
+    private TableView<CheckList> tabFila;
+    @FXML
+    private TableColumn<CheckList, Integer> colunaID;
+    @FXML
+    private TableColumn<CheckList, String> colunaNomeMot;
+    @FXML
+    private TableColumn<CheckList, String> colunaPlaca;
     
     private List<Funcionario> listaFuncionario; 
     private FilteredList<Funcionario> listaFiltradaFunc;
@@ -127,6 +142,10 @@ public class TelaInicialController implements Initializable {
     
     private List<Veiculo> listaVeiculo;
     private FilteredList<Veiculo> listaFiltradaVeiculo;
+    
+    private List<CheckList> fila;
+    ObservableList<CheckList> checkObsList;
+    
     
     
     
@@ -328,6 +347,32 @@ public class TelaInicialController implements Initializable {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        ChecklistService check = new ChecklistService();
+        
+            try {
+
+
+                fila = check.listarChecklists();
+
+                colunaID = new TableColumn("ID");
+                colunaID.setCellValueFactory(data -> new SimpleObjectProperty(data.getValue().getIdCheckList()));
+
+                colunaNomeMot = new TableColumn("Motorista");
+                colunaNomeMot.setCellValueFactory(data -> new SimpleObjectProperty(data.getValue().getMotorista().getNomeMotorista()));
+
+                colunaPlaca = new TableColumn("Veículo");
+                colunaPlaca.setCellValueFactory(data -> new SimpleObjectProperty(data.getValue().getVeiculo().getPlaca()));
+
+                tabFila.getColumns().addAll(colunaID, colunaNomeMot, colunaPlaca);
+                checkObsList = FXCollections.observableArrayList(fila);
+                
+                tabFila.setItems(checkObsList);
+                
+            
+            } catch (Exception ex) {
+                Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }    
     
     @FXML
@@ -542,11 +587,8 @@ public class TelaInicialController implements Initializable {
             
             txtCpfMot.setText(motorista.getCpf());
             txtCnhMot.setText(motorista.getCnh());
-            txtCatCnh.setText(motorista.getCategoriaCnh());
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
-            txtVencChn.setText(format.format(motorista.getDataVencimentoCnh()));
-        
+            txtCatCnh.setText(motorista.getCategoriaCnh());        
+            txtVencChn.setText(motorista.getDataVencimentoCnh().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
             txtTel.setText(motorista.getTelefone());
         }else{
             txtCpfMot.setText("");
@@ -650,4 +692,72 @@ public class TelaInicialController implements Initializable {
         
         return resposta;
     } 
+    @FXML
+    private void sairDaFila (){
+        
+        CheckList checkList = tabFila.getSelectionModel().getSelectedItem();
+        int idCheck = checkList.getIdCheckList();
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Sistema");
+        alert.setHeaderText(null);
+        alert.setContentText("Tem certeza que quer fechar este carregamento?");
+             
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if(result.isPresent() && result.get() == ButtonType.OK){
+            ChecklistService checklistService = new ChecklistService();
+            try {
+                boolean ok = checklistService.confirmaCarregamento(idCheck);
+                
+                if(ok){
+                    Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
+                    alertConf.setTitle("Sistema");
+                    alertConf.setHeaderText(null);
+                    alertConf.setContentText("Carregamento retirado da fila!");
+                    
+                    alertConf.show();
+                    
+                    atualizaFila();
+                }else{
+                    Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
+                    alertConf.setTitle("Sistema");
+                    alertConf.setHeaderText(null);
+                    alertConf.setContentText("Algo deu errado!");
+                    
+                    alertConf.show();
+                }
+                
+            } catch (Exception ex) {
+                Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
+                alertConf.setTitle("Sistema");
+                alertConf.setHeaderText(null);
+                alertConf.setContentText("Algo deu muito errado!");
+                    
+                alertConf.show();
+                Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
+        
+        
+        
+        
+    }
+    
+    private void atualizaFila(){
+  
+        ChecklistService check = new ChecklistService();
+        
+        try {
+            List<CheckList> novaLista = check.listarChecklists();
+            checkObsList.clear();
+            checkObsList.addAll(novaLista);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        
+    }
 }

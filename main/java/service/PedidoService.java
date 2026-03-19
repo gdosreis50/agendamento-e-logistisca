@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entidades.Pedido;
 import java.lang.reflect.Type;
@@ -8,7 +9,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.List;
+import util.LocalDateAdapter;
 
 public class PedidoService {
     public static String BASE_URL = "http://localhost/api/pedido/";
@@ -45,7 +48,7 @@ public class PedidoService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getPedido, HttpResponse.BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         
         Type pedido = new TypeToken<Pedido>(){}.getType();
         

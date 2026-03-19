@@ -2,6 +2,7 @@ package service;
 
 import Dto.ChecklistDTO;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entidades.CheckList;
 import java.lang.reflect.Type;
@@ -9,8 +10,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import util.LocalDateAdapter;
 
 public class ChecklistService {
     public static String BASE_URL = "http://localhost/api/checklist/";
@@ -27,7 +30,7 @@ public class ChecklistService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getListCheck, HttpResponse.BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         Type listType = new TypeToken<List<CheckList>>(){}.getType();
         
         
@@ -47,7 +50,7 @@ public class ChecklistService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getCheck, HttpResponse.BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         
         Type check = new TypeToken<CheckList>(){}.getType();
         
@@ -59,7 +62,7 @@ public class ChecklistService {
     public static boolean novoChecklist(ChecklistDTO check) throws Exception{
         
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(check);
         
         //System.out.println(request);
@@ -81,5 +84,26 @@ public class ChecklistService {
         } else {
             return false;
         }
+    }
+    
+    //Altera flag em checklist e retira-o da fila
+    public static boolean confirmaCarregamento (int idChecklist) throws Exception{
+        
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        HttpRequest confCarregamento = HttpRequest.newBuilder()
+                .uri(new URI ("http://localhost/api/checklist/" + idChecklist))
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+                
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpResponse<String> confResposta = httpClient.send(confCarregamento, HttpResponse.BodyHandlers.ofString());
+        int httpCode = confResposta.statusCode();
+        
+        if(httpCode == 200){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 }
