@@ -365,9 +365,13 @@ public class TelaInicialController implements Initializable {
                 colunaPlaca.setCellValueFactory(data -> new SimpleObjectProperty(data.getValue().getVeiculo().getPlaca()));
 
                 tabFila.getColumns().addAll(colunaID, colunaNomeMot, colunaPlaca);
+                
+                
                 checkObsList = FXCollections.observableArrayList(fila);
                 
                 tabFila.setItems(checkObsList);
+                
+                
                 
             
             } catch (Exception ex) {
@@ -476,6 +480,9 @@ public class TelaInicialController implements Initializable {
             boolean salvo = checklistService.novoChecklist(check);
             
             if  (salvo) {
+                
+                atualizaFila();
+                
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Sistema");
                 alert.setHeaderText(null);
@@ -483,29 +490,7 @@ public class TelaInicialController implements Initializable {
                 
                 alert.show();
                 
-                txtFieldNumPedido.setText("");
-                txtTipoProduto.setText("");
-                txtCliente.setText("");
-                txtLiberado.setText("");
-                txtNumPaletes.setText("");
-                txtCalcTaraMin.setText("");
-                txtTransp.setText("");
-                txtTipoVeic.setText("");
-                txtPlaca.setText("");
-                txtPrimVagao.setText("");
-                txtSegVagao.setText("");
-                txtTercVagao.setText("");
-                txtCpfMot.setText("");
-                txtCnhMot.setText("");
-                txtCatCnh.setText("");
-                txtVencChn.setText("");
-                txtTel.setText("");
-                txtCompMin.setText("");
-                txtLargMin.setText("");
-                txtCintaMin.setText("");
-                comboBoxMotorista.setValue(null);
-                comboBoxFuncionario.setValue(null);
-                comboBoxVeiculo.setValue(null);
+                limparCampos();
                 
             }else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -515,29 +500,7 @@ public class TelaInicialController implements Initializable {
                 
                 alert.show();
                 
-                txtFieldNumPedido.setText("");
-                txtTipoProduto.setText("");
-                txtCliente.setText("");
-                txtLiberado.setText("");
-                txtNumPaletes.setText("");
-                txtCalcTaraMin.setText("");
-                txtTransp.setText("");
-                txtTipoVeic.setText("");
-                txtPlaca.setText("");
-                txtPrimVagao.setText("");
-                txtSegVagao.setText("");
-                txtTercVagao.setText("");
-                txtCpfMot.setText("");
-                txtCnhMot.setText("");
-                txtCatCnh.setText("");
-                txtVencChn.setText("");
-                txtTel.setText("");
-                txtCompMin.setText("");
-                txtLargMin.setText("");
-                txtCintaMin.setText("");
-                comboBoxMotorista.setValue(null);
-                comboBoxFuncionario.setValue(null);
-                comboBoxVeiculo.setValue(null);
+                limparCampos();
             }
             
         } catch (Exception ex) {
@@ -550,29 +513,7 @@ public class TelaInicialController implements Initializable {
                 
                 alert.show();
                 
-                txtFieldNumPedido.setText("");
-                txtTipoProduto.setText("");
-                txtCliente.setText("");
-                txtLiberado.setText("");
-                txtNumPaletes.setText("");
-                txtCalcTaraMin.setText("");
-                txtTransp.setText("");
-                txtTipoVeic.setText("");
-                txtPlaca.setText("");
-                txtPrimVagao.setText("");
-                txtSegVagao.setText("");
-                txtTercVagao.setText("");
-                txtCpfMot.setText("");
-                txtCnhMot.setText("");
-                txtCatCnh.setText("");
-                txtVencChn.setText("");
-                txtTel.setText("");
-                txtCompMin.setText("");
-                txtLargMin.setText("");
-                txtCintaMin.setText("");
-                comboBoxMotorista.setValue(null);
-                comboBoxFuncionario.setValue(null);
-                comboBoxVeiculo.setValue(null);
+                limparCampos();
         }
         
         
@@ -711,14 +652,15 @@ public class TelaInicialController implements Initializable {
                 boolean ok = checklistService.confirmaCarregamento(idCheck);
                 
                 if(ok){
+                    
+                    atualizaFila();
+                    
                     Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
                     alertConf.setTitle("Sistema");
                     alertConf.setHeaderText(null);
                     alertConf.setContentText("Carregamento retirado da fila!");
                     
                     alertConf.show();
-                    
-                    atualizaFila();
                 }else{
                     Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
                     alertConf.setTitle("Sistema");
@@ -745,19 +687,20 @@ public class TelaInicialController implements Initializable {
         
     }
     
+    @FXML
     private void atualizaFila(){
   
         ChecklistService check = new ChecklistService();
-        
+        List<CheckList> novaLista;
         try {
-            List<CheckList> novaLista = check.listarChecklists();
+            novaLista = check.listarChecklists();
+
             checkObsList.clear();
             checkObsList.addAll(novaLista);
+   
+            
         } catch (Exception ex) {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        
-        
-    }
+    }        
 }

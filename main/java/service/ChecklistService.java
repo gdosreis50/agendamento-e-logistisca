@@ -11,6 +11,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import util.LocalDateAdapter;
@@ -33,10 +35,18 @@ public class ChecklistService {
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         Type listType = new TypeToken<List<CheckList>>(){}.getType();
         
+        List<CheckList> lista = new ArrayList<CheckList>();
         
+        lista = gson.fromJson(getResposta.body(), listType);
+        
+        if (lista == null){
+            return Collections.EMPTY_LIST;
+        }else{
+            return lista;
+        }
         //String resposta = getResposta.body();
         
-        return gson.fromJson(getResposta.body(), listType);
+        //return gson.fromJson(getResposta.body(), listType);
     }
     
     //Retorna um objeto tipo CheckList a partir de seu ID
