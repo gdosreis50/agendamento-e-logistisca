@@ -437,6 +437,11 @@ public class ManutencaoMotoristaController implements Initializable {
     }
     
     @FXML
+    private void switchToPedidos() throws IOException{
+        App.setRoot("visualizacaoPedidos");
+    }
+    
+    @FXML
     private void carregaDadosDaTabela(){
         
         Motorista motorista = tabelaMot.getSelectionModel().getSelectedItem();

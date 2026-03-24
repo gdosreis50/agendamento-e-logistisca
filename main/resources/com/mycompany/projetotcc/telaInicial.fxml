@@ -40,7 +40,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewPedidos" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Pedidos" textFill="WHITE">
+            <Button fx:id="btViewPedidos" mnemonicParsing="false" onAction="#switchToPedidos" style="-fx-background-color: #000000;" text="Pedidos" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

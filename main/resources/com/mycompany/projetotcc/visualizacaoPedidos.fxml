@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VisualizacaoPedidosController">
+   <bottom>
+      <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
+         <buttons>
+            <Button fx:id="btViewCheck" mnemonicParsing="false" onAction="#switchToCheck" style="-fx-background-color: #000000;" text="Checklist" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewVeiculo" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Veículos" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewTransportadora" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Transportadora" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewAgendamento" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewPedidos" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Pedidos" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btViewMot" mnemonicParsing="false" onAction="#switchToMotorista" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </buttons>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets right="360.0" />
+         </padding>
+      </ButtonBar>
+   </bottom>
+   <top>
+      <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1290.0" style="-fx-background-color: #59c977;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="571.0" text="Pedidos" textAlignment="RIGHT">
+               <font>
+                  <Font name="Calibri Light" size="50.0" />
+               </font>
+            </Label>
+            <Button fx:id="btAtualizaPed" mnemonicParsing="false" onAction="#atualizarPed" prefHeight="101.0" prefWidth="100.0" text="Atualizar" textFill="#216e80">
+               <font>
+                  <Font name="Candara Bold" size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="330.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="569.0" prefWidth="377.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="63.0" prefWidth="1280.0" text="Lista de Pedidos">
+               <font>
+                  <Font name="Candara Bold" size="20.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tabelaPed" onMouseClicked="#abrirCheckComPedido" prefHeight="549.0" prefWidth="377.0" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

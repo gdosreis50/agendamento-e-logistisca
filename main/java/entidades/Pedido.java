@@ -1,7 +1,10 @@
 package entidades;
 
+import com.google.gson.annotations.SerializedName;
+
 
 public class Pedido {
+    @SerializedName("idpedidos")
     private int idPedido;
     private String numPed;
     private String nomeCliente;

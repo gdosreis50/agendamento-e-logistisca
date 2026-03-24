@@ -3,6 +3,7 @@ package service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import entidades.CheckList;
 import entidades.Pedido;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -10,6 +11,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import util.LocalDateAdapter;
 
@@ -28,13 +31,21 @@ public class PedidoService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getListPedido, HttpResponse.BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         Type listType = new TypeToken<List<Pedido>>(){}.getType();
         
         
         //String resposta = getResposta.body();
         
-        return gson.fromJson(getResposta.body(), listType);
+        List<Pedido> lista = new ArrayList<Pedido>();
+        
+        lista = gson.fromJson(getResposta.body(), listType);
+        
+        if (lista == null){
+            return Collections.EMPTY_LIST;
+        }else{
+            return lista;
+        }
     }
     
     //Retorna um objeto tipo Pedido a partir de seu ID

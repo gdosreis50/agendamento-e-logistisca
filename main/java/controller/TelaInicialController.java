@@ -146,7 +146,7 @@ public class TelaInicialController implements Initializable {
     private List<CheckList> fila;
     ObservableList<CheckList> checkObsList;
     
-    
+    private Pedido pedido;
     
     
     /**
@@ -382,6 +382,11 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void switchToMotoristas() throws IOException {
         App.setRoot("manutencaoMotorista");
+    }
+    
+    @FXML
+    private void switchToPedidos() throws IOException {
+        App.setRoot("visualizacaoPedidos");
     }
     
     @FXML
@@ -702,5 +707,35 @@ public class TelaInicialController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }        
+    }   
+    
+    public void initPedido(Pedido pedido){
+        this.pedido = pedido;
+        
+        
+            
+        int tara = pedido.getNumPaletes();
+        int cintas = pedido.getNumPaletes();
+        double comprimento = pedido.getNumPaletes();
+        final double LARGURA = 2.5;
+                
+        //System.out.println(LARGURA);
+              
+        comprimento = (comprimento/2) * 1.05;
+        cintas = (cintas/2) + 2;
+        tara = tara * 1000;
+                
+        String compFormatado = String.format("%.2f", comprimento);
+        String largFormatada = String.format("%.2f", LARGURA);
+            
+        txtCliente.setText(pedido.getNomeCliente());
+        txtLiberado.setText(pedido.getStatusPed());
+        txtNumPaletes.setText(String.valueOf(pedido.getNumPaletes()));
+        txtCalcTaraMin.setText(String.valueOf(tara));
+        txtTransp.setText(pedido.getTransportadora());
+        txtTipoProduto.setText("Carolina Soil");
+        txtLargMin.setText(largFormatada);
+        txtCompMin.setText(compFormatado);
+        txtCintaMin.setText(Integer.toString(cintas));
+    }
 }
