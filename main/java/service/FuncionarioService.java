@@ -55,13 +55,7 @@ public class FuncionarioService {
     
     
     // Cria novo Funcionario no BD e retorna true se der certo ou false para falha
-    public static boolean novoFuncionario(String nome, String cpf) throws Exception{
-        
-        
-        FuncionarioDTO funcionario = new FuncionarioDTO();
-        
-        funcionario.setNomeFunc(nome);
-        funcionario.setCpf(cpf);
+    public static boolean novoFuncionario(FuncionarioDTO funcionario) throws Exception{
         
         
         Gson gson = new Gson();
@@ -89,12 +83,7 @@ public class FuncionarioService {
     }
     
     // Atualiza dado funcionario. Retorna true se bem sucedido e false para falha
-    public static boolean atualizaFuncionario(int idFuncionario, String nome, String cpf) throws Exception{
-        
-        FuncionarioDTO funcionario = new FuncionarioDTO();
-        
-        funcionario.setNomeFunc(nome);
-        funcionario.setCpf(cpf);
+    public static boolean atualizaFuncionario(int idFuncionario,FuncionarioDTO funcionario) throws Exception{
         
         Gson gson = new Gson();
         String request = gson.toJson(funcionario);

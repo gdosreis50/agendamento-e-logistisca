@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import projetotcc.App;
 import service.PedidoService;
@@ -145,23 +146,26 @@ public class VisualizacaoPedidosController implements Initializable {
     }
     
     @FXML
-    private void abrirCheckComPedido(){
-        Pedido pedido = tabelaPed.getSelectionModel().getSelectedItem();
+    private void abrirCheckComPedido(MouseEvent event){
         
-        if(pedido != null){
-            try {
-            
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mycompany/projetotcc/telaInicial.fxml"));
-                Parent root = loader.load();
-                
-                TelaInicialController controller = loader.getController();
-                controller.initPedido(pedido);
-                
-                tabelaPed.getScene().setRoot(root);
-                
-            
-            }catch (IOException ex) {
-                    Logger.getLogger(VisualizacaoPedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        if(event.getClickCount() == 2){
+            Pedido pedido = tabelaPed.getSelectionModel().getSelectedItem();
+        
+            if(pedido != null){
+                try {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mycompany/projetotcc/telaInicial.fxml"));
+                    Parent root = loader.load();
+
+                    TelaInicialController controller = loader.getController();
+                    controller.initPedido(pedido);
+
+                    tabelaPed.getScene().setRoot(root);
+
+
+                }catch (IOException ex) {
+                        Logger.getLogger(VisualizacaoPedidosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

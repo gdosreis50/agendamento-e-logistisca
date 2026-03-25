@@ -43,6 +43,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import projetotcc.App;
@@ -207,16 +208,16 @@ public class TelaInicialController implements Initializable {
                         
                 });
         
-                if (comboBoxMotorista.getEditor().isFocused() && !newValue.isEmpty()){
-                    comboBoxMotorista.show();
+                if (comboBoxFuncionario.getEditor().isFocused() && !newValue.isEmpty()){
+                    comboBoxFuncionario.show();
                 }
                     
             });
         
             
-            comboBoxMotorista.getEditor().setOnKeyReleased(event -> {
+            comboBoxFuncionario.getEditor().setOnKeyReleased(event -> {
             if(event.getCode() != KeyCode.UP && event.getCode() != KeyCode.DOWN && event.getCode() != KeyCode.ENTER){
-                comboBoxMotorista.getEditor().positionCaret(comboBoxMotorista.getEditor().getText().length());
+                comboBoxFuncionario.getEditor().positionCaret(comboBoxFuncionario.getEditor().getText().length());
             }
         });
         
@@ -378,6 +379,11 @@ public class TelaInicialController implements Initializable {
                 Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
             }
     }    
+    
+    @FXML
+    private void switchToFuncionarios() throws IOException{
+        App.setRoot("manutencaoFuncionario");
+    }
     
     @FXML
     private void switchToMotoristas() throws IOException {
@@ -639,57 +645,54 @@ public class TelaInicialController implements Initializable {
         return resposta;
     } 
     @FXML
-    private void sairDaFila (){
+    private void sairDaFila (MouseEvent event){
         
-        CheckList checkList = tabFila.getSelectionModel().getSelectedItem();
-        int idCheck = checkList.getIdCheckList();
+        if(event.getClickCount() == 2){
+            CheckList checkList = tabFila.getSelectionModel().getSelectedItem();
+            int idCheck = checkList.getIdCheckList();
         
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Sistema");
-        alert.setHeaderText(null);
-        alert.setContentText("Tem certeza que quer fechar este carregamento?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("Tem certeza que quer fechar este carregamento?");
              
-        Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
         
-        if(result.isPresent() && result.get() == ButtonType.OK){
-            ChecklistService checklistService = new ChecklistService();
-            try {
-                boolean ok = checklistService.confirmaCarregamento(idCheck);
+            if(result.isPresent() && result.get() == ButtonType.OK){
+                ChecklistService checklistService = new ChecklistService();
+                try {
+                    boolean carregado = checklistService.confirmaCarregamento(idCheck);
+
+                    if(carregado){
+
+                        atualizaFila();
+
+                        Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
+                        alertConf.setTitle("Sistema");
+                        alertConf.setHeaderText(null);
+                        alertConf.setContentText("Carregamento retirado da fila!");
+
+                        alertConf.show();
+                    }else{
+                        Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
+                        alertConf.setTitle("Sistema");
+                        alertConf.setHeaderText(null);
+                        alertConf.setContentText("Algo deu errado!");
+
+                        alertConf.show();
+                    }
                 
-                if(ok){
-                    
-                    atualizaFila();
-                    
+                }catch (Exception ex) {
                     Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
                     alertConf.setTitle("Sistema");
                     alertConf.setHeaderText(null);
-                    alertConf.setContentText("Carregamento retirado da fila!");
-                    
+                    alertConf.setContentText("Algo deu muito errado!");
+
                     alertConf.show();
-                }else{
-                    Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
-                    alertConf.setTitle("Sistema");
-                    alertConf.setHeaderText(null);
-                    alertConf.setContentText("Algo deu errado!");
-                    
-                    alertConf.show();
+                    Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            } catch (Exception ex) {
-                Alert alertConf = new Alert(Alert.AlertType.INFORMATION);
-                alertConf.setTitle("Sistema");
-                alertConf.setHeaderText(null);
-                alertConf.setContentText("Algo deu muito errado!");
-                    
-                alertConf.show();
-                Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        }
-        
-        
-        
-        
-        
     }
     
     @FXML

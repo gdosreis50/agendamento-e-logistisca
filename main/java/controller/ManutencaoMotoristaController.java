@@ -34,6 +34,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 import projetotcc.App;
 import service.FuncionarioService;
@@ -152,16 +153,16 @@ public class ManutencaoMotoristaController implements Initializable {
                         
                 });
         
-                if (comboBoxMotorista.getEditor().isFocused() && !newValue.isEmpty()){
-                    comboBoxMotorista.show();
+                if (comboBoxFuncionario.getEditor().isFocused() && !newValue.isEmpty()){
+                    comboBoxFuncionario.show();
                 }
                     
             });
         
             
-            comboBoxMotorista.getEditor().setOnKeyReleased(event -> {
+            comboBoxFuncionario.getEditor().setOnKeyReleased(event -> {
             if(event.getCode() != KeyCode.UP && event.getCode() != KeyCode.DOWN && event.getCode() != KeyCode.ENTER){
-                comboBoxMotorista.getEditor().positionCaret(comboBoxMotorista.getEditor().getText().length());
+                comboBoxFuncionario.getEditor().positionCaret(comboBoxFuncionario.getEditor().getText().length());
             }
         });
         
@@ -196,9 +197,7 @@ public class ManutencaoMotoristaController implements Initializable {
             
             tabelaMot.getColumns().addAll(colunaID, colunaNome, colunaTelefone, colunaCat);
             
-            for (Motorista motorista : motObsList) {
-                tabelaMot.getItems().add(motorista);
-            }
+            tabelaMot.setItems(motObsList);
             
             
             
@@ -442,20 +441,21 @@ public class ManutencaoMotoristaController implements Initializable {
     }
     
     @FXML
-    private void carregaDadosDaTabela(){
-        
-        Motorista motorista = tabelaMot.getSelectionModel().getSelectedItem();
-            
-        idMot = motorista.getIdMotorista();
-            
-        textFieldNome.setText(motorista.getNomeMotorista());
-        textFieldCpf.setText(motorista.getCpf());
-        textFieldCnh.setText(motorista.getCnh());
-        textFieldCatCnh.setText(motorista.getCategoriaCnh());        
-        dateSelector.setValue(motorista.getDataVencimentoCnh());
-        textFieldTelefone.setText(motorista.getTelefone());
-        
-        novo = false;
+    private void carregaDadosDaTabela(MouseEvent event){
+        if(event.getClickCount() == 2){
+            Motorista motorista = tabelaMot.getSelectionModel().getSelectedItem();
+
+            idMot = motorista.getIdMotorista();
+
+            textFieldNome.setText(motorista.getNomeMotorista());
+            textFieldCpf.setText(motorista.getCpf());
+            textFieldCnh.setText(motorista.getCnh());
+            textFieldCatCnh.setText(motorista.getCategoriaCnh());        
+            dateSelector.setValue(motorista.getDataVencimentoCnh());
+            textFieldTelefone.setText(motorista.getTelefone());
+
+            novo = false;
+        }
     }
 
     
