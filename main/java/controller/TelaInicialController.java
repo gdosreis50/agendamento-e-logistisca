@@ -73,6 +73,8 @@ public class TelaInicialController implements Initializable {
     @FXML
     private Button btViewPedidos;
     @FXML
+    private Button btCheck;
+    @FXML
     private TextField txtFieldNumPedido;
     @FXML
     private ComboBox<Motorista> comboBoxMotorista;
@@ -156,6 +158,8 @@ public class TelaInicialController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        btCheck.setDisable(true);
         
         FuncionarioService funcionarios = new FuncionarioService();
         

@@ -46,6 +46,16 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <Button fx:id="btMot" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#switchToFuncionario" style="-fx-background-color: #000000;" text="Funcionários" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </buttons>
          <BorderPane.margin>
             <Insets />

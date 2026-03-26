@@ -60,6 +60,8 @@ public class ManutencaoMotoristaController implements Initializable {
     @FXML
     private Button btViewPedidos;
     @FXML
+    private Button btMot;
+    @FXML
     private ComboBox<Motorista> comboBoxMotorista;
     @FXML
     private ComboBox<Funcionario> comboBoxFuncionario;
@@ -100,7 +102,8 @@ public class ManutencaoMotoristaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         novo = true;
+        btMot.setDisable(true);
+        novo = true;
         
         FuncionarioService funcionarios = new FuncionarioService();
         
@@ -438,6 +441,11 @@ public class ManutencaoMotoristaController implements Initializable {
     @FXML
     private void switchToPedidos() throws IOException{
         App.setRoot("visualizacaoPedidos");
+    }
+    
+    @FXML
+    private void switchToFuncionario() throws IOException{
+        App.setRoot("manutencaoFuncionario");
     }
     
     @FXML

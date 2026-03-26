@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.IndexRange;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -58,15 +59,15 @@ public class ManutencaoFuncionarioController implements Initializable {
     @FXML
     private Button btViewMotorista;
     @FXML
+    private Button btFunc;
+    @FXML
     private ComboBox<Funcionario> comboBoxFuncionario;
     @FXML
     private TextField textFieldNomeFunc;
     @FXML
     private TextField textFieldCpfFunc;
     @FXML
-    private TableView<Funcionario> tabelaFunc;
-    @FXML
-    private TableColumn<Funcionario, String> colunaNome;
+    private ListView<Funcionario> listViewFunc;
     
     private boolean novo;
     private int idFunc;
@@ -82,6 +83,8 @@ public class ManutencaoFuncionarioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btFunc.setDisable(true);
+        
         novo = true;
         idFunc = -1;
         
@@ -93,12 +96,7 @@ public class ManutencaoFuncionarioController implements Initializable {
 
             obsList = FXCollections.observableArrayList(listaFuncionario);
             
-            colunaNome = new TableColumn("Nome");
-            colunaNome.setCellValueFactory(data -> new SimpleObjectProperty(data.getValue().getNomeFunc()));
-            
-            tabelaFunc.getColumns().addAll(colunaNome);
-            
-            tabelaFunc.setItems(obsList);
+            listViewFunc.setItems(obsList);
             
             
             
@@ -210,7 +208,7 @@ public class ManutencaoFuncionarioController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Sistema");
                     alert.setHeaderText(null);
-                    alert.setContentText("Motorista Salvo");
+                    alert.setContentText("Funcionário Salvo");
 
                     alert.show();
                     atualizarLista();
@@ -250,7 +248,7 @@ public class ManutencaoFuncionarioController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Sistema");
                     alert.setHeaderText(null);
-                    alert.setContentText("Motorista Salvo");
+                    alert.setContentText("Funcionário Salvo");
 
                     alert.show();
                     atualizarLista();
@@ -316,7 +314,7 @@ public class ManutencaoFuncionarioController implements Initializable {
     @FXML
     private void carregaDadosDaTabela(MouseEvent event) {
         if(event.getClickCount() == 2){
-            Funcionario funcionario = tabelaFunc.getSelectionModel().getSelectedItem();
+            Funcionario funcionario = listViewFunc.getSelectionModel().getSelectedItem();
             idFunc = funcionario.getIdFuncionario();
             
             textFieldNomeFunc.setText(funcionario.getNomeFunc());
