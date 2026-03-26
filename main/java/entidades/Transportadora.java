@@ -1,8 +1,11 @@
 package entidades;
 
+import com.google.gson.annotations.SerializedName;
+
 
 public class Transportadora {
     
+    @SerializedName("idtransportadora")
     private int idTransportadora;
     private String nomeTransportadora;
     private String cnpj;

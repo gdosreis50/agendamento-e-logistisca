@@ -97,6 +97,8 @@ public class ManutencaoMotoristaController implements Initializable {
     private boolean novo;
     private int idMot;
     
+    private ObservableList<Motorista> motObsList;
+    
     /**
      * Initializes the controller class.
      */
@@ -104,6 +106,7 @@ public class ManutencaoMotoristaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         btMot.setDisable(true);
         novo = true;
+        idMot = -1;
         
         FuncionarioService funcionarios = new FuncionarioService();
         
@@ -183,7 +186,7 @@ public class ManutencaoMotoristaController implements Initializable {
         try {
             listaMotorista = motoristas.listarMotorista();
             
-            ObservableList<Motorista> motObsList = FXCollections.observableArrayList(listaMotorista);
+            motObsList = FXCollections.observableArrayList(listaMotorista);
             
             //Preenche tabela a direita para visualização
             colunaID = new TableColumn("ID");
@@ -283,6 +286,7 @@ public class ManutencaoMotoristaController implements Initializable {
         comboBoxFuncionario.setValue(null);
         
         novo = true;
+        idMot = -1;
     }
 
     @FXML
@@ -325,7 +329,7 @@ public class ManutencaoMotoristaController implements Initializable {
                         alert.setContentText("Motorista Salvo");
                 
                         alert.show();
-                    
+                        atualizarLista();
                         limparCampos();
                     
                     }else{
@@ -377,7 +381,7 @@ public class ManutencaoMotoristaController implements Initializable {
                         alert.setContentText("Motorista Salvo");
                    
                         alert.show();
-                    
+                        atualizarLista();
                         limparCampos();
                     
                     }else{
@@ -449,6 +453,11 @@ public class ManutencaoMotoristaController implements Initializable {
     }
     
     @FXML
+    private void switchToTransportadora() throws IOException{
+        App.setRoot("manutencaoTransportadora");
+    }
+    
+    @FXML
     private void carregaDadosDaTabela(MouseEvent event){
         if(event.getClickCount() == 2){
             Motorista motorista = tabelaMot.getSelectionModel().getSelectedItem();
@@ -466,5 +475,65 @@ public class ManutencaoMotoristaController implements Initializable {
         }
     }
 
+    @FXML
+    private void desativarMot(){
+        MotoristaService mServ = new MotoristaService();
+        
+        try {
+            if (idMot == -1){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Selecione um Motorista");
+                
+                alert.show();
+                return;
+            }
+            
+            
+            boolean desativado = mServ.desativarMotorista(idMot);
+            
+            if(desativado){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Motorista desativado!");
+
+                alert.show();
+                atualizarLista();
+                limparCampos();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Algo deu errado!");
+                
+                alert.show();
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ManutencaoTransportadoraController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Sistema");
+            alert.setHeaderText(null);
+            alert.setContentText("Algo deu muito errado! Verifique os campos e se persistir, contate o TI!");
+
+            alert.show();
+        }
+    }
     
+    private void atualizarLista(){
+        MotoristaService mot = new MotoristaService();
+        List<Motorista> novaLista;
+        try {
+            novaLista = mot.listarMotorista();
+
+            motObsList.clear();
+            motObsList.addAll(novaLista);
+   
+            
+        } catch (Exception ex) {
+            Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

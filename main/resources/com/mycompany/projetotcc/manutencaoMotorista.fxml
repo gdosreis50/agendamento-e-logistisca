@@ -31,7 +31,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewTransportadora" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Transportadora" textFill="WHITE">
+            <Button fx:id="btViewTransportadora" mnemonicParsing="false" onAction="#switchToTransportadora" style="-fx-background-color: #000000;" text="Transportadora" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -90,6 +90,14 @@
                </font>
                <HBox.margin>
                   <Insets />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#desativarMot" prefHeight="104.0" prefWidth="119.0" text="Excluir Motorista">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
                </HBox.margin>
             </Button>
          </children>

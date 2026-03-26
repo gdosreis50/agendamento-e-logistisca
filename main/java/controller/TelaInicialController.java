@@ -400,6 +400,11 @@ public class TelaInicialController implements Initializable {
     }
     
     @FXML
+    private void switchToTransportadora() throws IOException{
+        App.setRoot("manutencaoTransportadora");
+    }
+    
+    @FXML
     private void getPedido(){
         String numPed = txtFieldNumPedido.getText();
         

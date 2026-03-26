@@ -5,8 +5,8 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManutencaoFuncionarioController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManutencaoTransportadoraController">
    <bottom>
       <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
          <buttons>
@@ -25,32 +25,32 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewVeiculo" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Veículos" textFill="WHITE">
+            <Button mnemonicParsing="false" style="-fx-background-color: #000000;" text="Veículos" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewTransportadora" mnemonicParsing="false" onAction="#switchToTransportadora" style="-fx-background-color: #000000;" text="Transportadora" textFill="WHITE">
+            <Button fx:id="btViewTransportadora" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Transportadora" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewAgendamento" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
+            <Button mnemonicParsing="false" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewPedidos" mnemonicParsing="false" onAction="#switchToPedidos" style="-fx-background-color: #000000;" text="Pedidos" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#switchToPedidos" style="-fx-background-color: #000000;" text="Pedidos" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewMotorista" mnemonicParsing="false" onAction="#switchToMotorista" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#switchToMotoristas" style="-fx-background-color: #000000;" text="Motoristas" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btFunc" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Funcionários" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#switchToFuncionario" style="-fx-background-color: #000000;" text="Funcionários" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -70,7 +70,7 @@
    <top>
       <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1290.0" style="-fx-background-color: #59c977;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="571.0" text="Funcionários" textAlignment="RIGHT">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="571.0" text="Transportadoras" textAlignment="RIGHT">
                <font>
                   <Font name="Calibri Light" size="50.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Insets left="330.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#salvarFunc" prefHeight="104.0" prefWidth="110.0" text="Salvar">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#salvarTransp" prefHeight="104.0" prefWidth="110.0" text="Salvar">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
@@ -91,7 +91,10 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#desativaFunc" prefHeight="104.0" prefWidth="135.0" text="Desativar Funcionário" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#desativarTransp" prefHeight="102.0" prefWidth="148.0" text="Excluir Transportadora" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -121,7 +124,7 @@
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="119.0" text="Funcionario" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="128.0" text="Transportadora" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Candara Light" size="18.0" />
                </font>
@@ -129,7 +132,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="comboBoxFuncionario" onAction="#preencherFunc" prefHeight="25.0" prefWidth="476.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ComboBox fx:id="comboBoxTransportadora" onAction="#preencherTransp" prefHeight="25.0" prefWidth="476.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="130.0" />
                </GridPane.margin>
@@ -154,6 +157,14 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Separator>
+            <Label prefHeight="22.0" prefWidth="84.0" text="E-mail" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
             <Label alignment="BASELINE_LEFT" prefHeight="22.0" prefWidth="134.0" text="Nome" GridPane.rowIndex="3">
                <font>
                   <Font name="Candara Bold" size="18.0" />
@@ -162,7 +173,7 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <Label prefHeight="22.0" prefWidth="148.0" text="CPF" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label prefHeight="22.0" prefWidth="148.0" text="CNPJ" GridPane.rowIndex="4">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
@@ -170,12 +181,28 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
+            <Label prefHeight="22.0" prefWidth="128.0" text="Emissor" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="comboBoxFuncionario" prefHeight="35.0" prefWidth="202.0" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="190.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </ComboBox>
             <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="50.0" left="10.0" />
                </GridPane.margin>
             </Separator>
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="31.0" prefWidth="292.0" text="Dados do Funcionario" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="31.0" prefWidth="332.0" text="Dados da Transportadora" GridPane.rowIndex="1">
                <font>
                   <Font name="Candara Bold" size="26.0" />
                </font>
@@ -185,7 +212,15 @@
                   <Insets bottom="50.0" left="10.0" />
                </GridPane.margin>
             </Separator>
-            <TextField fx:id="textFieldNomeFunc" prefHeight="25.0" prefWidth="332.0" GridPane.rowIndex="3">
+            <Label prefHeight="22.0" prefWidth="84.0" text="ANTT" textAlignment="RIGHT" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="textFieldNome" prefHeight="25.0" prefWidth="332.0" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="115.0" />
                </GridPane.margin>
@@ -193,13 +228,26 @@
                   <Insets top="10.0" />
                </padding>
             </TextField>
-            <TextField fx:id="textFieldCpfFunc" prefHeight="27.0" prefWidth="418.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="textFieldCnpj" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets left="125.0" right="150.0" />
+                  <Insets left="125.0" />
                </GridPane.margin>
                <padding>
                   <Insets top="10.0" />
                </padding>
+            </TextField>
+            <TextField fx:id="textFieldAntt" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="130.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="textFieldEmail" prefHeight="25.0" prefWidth="273.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="120.0" right="120.0" />
+               </GridPane.margin>
             </TextField>
          </children>
       </GridPane>
@@ -207,12 +255,12 @@
    <right>
       <VBox prefHeight="569.0" prefWidth="377.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="377.0" text="Lista de Funcionários">
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="377.0" text="Lista de Transportadoras">
                <font>
                   <Font name="Candara Bold" size="20.0" />
                </font>
             </Label>
-            <ListView fx:id="listViewFunc" onMouseClicked="#carregaDadosDaTabela" prefHeight="547.0" prefWidth="377.0" />
+            <TableView fx:id="tabelaTransp" onMouseClicked="#carregaDadosDaTabela" prefHeight="549.0" prefWidth="377.0" />
          </children>
       </VBox>
    </right>

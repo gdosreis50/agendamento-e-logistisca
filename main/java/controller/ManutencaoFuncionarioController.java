@@ -293,6 +293,11 @@ public class ManutencaoFuncionarioController implements Initializable {
     private void switchToMotorista(ActionEvent event) throws IOException {
         App.setRoot("manutencaoMotorista");
     }
+    
+    @FXML
+    private void switchToTransportadora() throws IOException{
+        App.setRoot("manutencaoTransportadora");
+    }
 
     @FXML
     private void preencherFunc(ActionEvent event) {

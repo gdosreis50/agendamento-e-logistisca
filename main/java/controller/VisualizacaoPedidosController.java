@@ -151,6 +151,11 @@ public class VisualizacaoPedidosController implements Initializable {
     }
     
     @FXML
+    private void switchToTransportadora() throws IOException{
+        App.setRoot("manutencaoTransportadora");
+    }
+    
+    @FXML
     private void abrirCheckComPedido(MouseEvent event){
         
         if(event.getClickCount() == 2){

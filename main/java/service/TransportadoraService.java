@@ -55,17 +55,7 @@ public class TransportadoraService {
     
     
     // Cria nova transportadora no BD e retorna true se der certo ou false para falha
-    public static boolean novaTransportadora(String nomeTransportadora, String cnpj, String antt, String email, int idFunc) throws Exception{
-        
-        
-        TransportadoraDTO transportadora = new TransportadoraDTO();
-        
-        
-        transportadora.setNomeTransportadora(nomeTransportadora);
-        transportadora.setCnpj(cnpj);
-        transportadora.setAntt(antt);
-        transportadora.setEmail(email);
-        transportadora.setIdfuncionario(idFunc);
+    public static boolean novaTransportadora(TransportadoraDTO transportadora) throws Exception{
         
         Gson gson = new Gson();
         String request = gson.toJson(transportadora);
@@ -92,16 +82,7 @@ public class TransportadoraService {
     }
     
     // Atualiza dada transportadora. Retorna true se bem sucedido e false para falha
-    public static boolean atualizaTransportadora(int idTransportadora, String nomeTransportadora, String cnpj, String antt, String email, int idFunc) throws Exception{
-        
-        TransportadoraDTO transportadora = new TransportadoraDTO();
-        
-        
-        transportadora.setNomeTransportadora(nomeTransportadora);
-        transportadora.setCnpj(cnpj);
-        transportadora.setAntt(antt);
-        transportadora.setEmail(email);
-        transportadora.setIdfuncionario(idFunc);;
+    public static boolean atualizaTransportadora(int idTransportadora, TransportadoraDTO transportadora) throws Exception{
         
         Gson gson = new Gson();
         String request = gson.toJson(transportadora);
