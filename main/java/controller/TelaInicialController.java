@@ -9,6 +9,7 @@ import entidades.CheckList;
 import entidades.Funcionario;
 import entidades.Motorista;
 import entidades.Pedido;
+import entidades.Transportadora;
 import entidades.Vagao;
 import entidades.Veiculo;
 import java.io.IOException;
@@ -51,6 +52,7 @@ import service.ChecklistService;
 import service.FuncionarioService;
 import service.MotoristaService;
 import service.PedidoService;
+import service.TransportadoraService;
 import service.VeiculoService;
 
 /**
@@ -91,6 +93,8 @@ public class TelaInicialController implements Initializable {
     @FXML
     private ComboBox<Veiculo> comboBoxVeiculo;
     @FXML
+    private ComboBox<Transportadora> comboBoxTransp;
+    @FXML
     private Label txtCalcTaraMin;
     @FXML
     private Label txtPlaca;
@@ -129,6 +133,12 @@ public class TelaInicialController implements Initializable {
     @FXML
     private Label txtTaraTotal;
     @FXML
+    private Label txtCnpjTransp;
+    @FXML
+    private Label txtAnttTransp;
+    @FXML
+    private Label txtEmailTransp;
+    @FXML
     private TableView<CheckList> tabFila;
     @FXML
     private TableColumn<CheckList, Integer> colunaID;
@@ -147,7 +157,10 @@ public class TelaInicialController implements Initializable {
     private FilteredList<Veiculo> listaFiltradaVeiculo;
     
     private List<CheckList> fila;
-    ObservableList<CheckList> checkObsList;
+    private ObservableList<CheckList> checkObsList;
+    
+    private List<Transportadora> listaTransp;
+    private FilteredList<Transportadora> listaFiltradaTransp;
     
     private Pedido pedido;
     
@@ -379,9 +392,84 @@ public class TelaInicialController implements Initializable {
                 
                 
             
-            } catch (Exception ex) {
+            } 
+            catch (Exception ex) {
                 Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+        TransportadoraService transpServ = new TransportadoraService();
+        
+        try {
+            listaTransp = transpServ.listarTransportadora();
+            
+            ObservableList<Transportadora> transpObsList = FXCollections.observableArrayList(listaTransp);
+            
+            listaFiltradaTransp = new FilteredList<>(transpObsList, p -> true);
+            
+            comboBoxTransp.setItems(listaFiltradaTransp);
+            comboBoxTransp.setEditable(true);
+            comboBoxTransp.setVisibleRowCount(5);
+            
+            comboBoxTransp.setConverter(new StringConverter<Transportadora>(){
+                
+                public String toString(Transportadora transportadora){
+                    return transportadora == null ? "" : transportadora.getNomeTransportadora();
+                }
+
+                @Override
+                public Transportadora fromString(String string) {
+                    return comboBoxTransp.getItems().stream()
+                            .filter(t -> t.getNomeTransportadora().equals(string))
+                            .findFirst().orElse(null);
+                }
+            });
+            
+            comboBoxTransp.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                
+                if(event.getCode() == KeyCode.SPACE){
+                    
+                    if(comboBoxTransp.getEditor().isFocused()){
+                        IndexRange selection = comboBoxTransp.getEditor().getSelection();
+                        
+                        if(selection.getLength() > 0){
+                            comboBoxTransp.getEditor().replaceText(selection, " ");
+                        }
+                    }
+                }
+            });
+                        
+            
+            comboBoxTransp.getEditor().textProperty().addListener((obs,oldValue, newValue)->{
+                
+                Platform.runLater(() -> {
+                    listaFiltradaTransp.setPredicate(transportadora -> {
+                    if(newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                    
+                    return transportadora.getNomeTransportadora().toLowerCase().contains(newValue.toLowerCase());
+                    
+                });
+                    
+                if (comboBoxTransp.getEditor().isFocused() && !newValue.isEmpty()){
+                    comboBoxTransp.show();
+                }
+                    
+            });
+        });
+            
+        comboBoxTransp.getEditor().setOnKeyReleased(event -> {
+            if(event.getCode() != KeyCode.UP && event.getCode() != KeyCode.DOWN && event.getCode() != KeyCode.ENTER){
+                comboBoxTransp.getEditor().positionCaret(comboBoxTransp.getEditor().getText().length());
+            }
+        });
+            
+        } 
+        catch (Exception ex) {
+            Logger.getLogger(TelaInicialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }    
     
     @FXML
@@ -472,11 +560,11 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void gerarCheckEHistorico (){
         
-        if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null){
+        if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null || comboBoxTransp.getValue() == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Sistema");
             alert.setHeaderText(null);
-            alert.setContentText("Coloque um Pedido Valido, Seu nome, Motorista e Veículo!");
+            alert.setContentText("Coloque um Pedido Valido, Seu nome, Motorista, Transportadora e Veículo!");
                 
             alert.show();
                 
@@ -492,7 +580,7 @@ public class TelaInicialController implements Initializable {
         check.setIdmotoristas(comboBoxMotorista.getValue().getIdMotorista());
         check.setIdfuncionario(comboBoxFuncionario.getValue().getIdFuncionario());
         check.setIdveiculo(comboBoxVeiculo.getValue().getIdVeiculo());
-        check.setIdtransportadora(1);
+        check.setIdtransportadora(comboBoxTransp.getValue().getIdTransportadora());
         
         ChecklistService checklistService = new ChecklistService();
         
@@ -610,6 +698,24 @@ public class TelaInicialController implements Initializable {
         }
     
     @FXML
+    private void preencherTransp (){
+        if(comboBoxTransp.getValue() != null){
+            
+            Transportadora transportadora = comboBoxTransp.getValue();           
+            
+            txtCnpjTransp.setText(transportadora.getCnpj());
+            txtAnttTransp.setText(transportadora.getAntt());
+            txtEmailTransp.setText(transportadora.getEmail());
+            
+            
+            }else{
+            txtCnpjTransp.setText("");
+            txtAnttTransp.setText("");
+            txtEmailTransp.setText("");
+        }
+    }
+    
+    @FXML
     private void limparCampos (){
         txtFieldNumPedido.setText("");
                 txtTipoProduto.setText("");
@@ -635,9 +741,13 @@ public class TelaInicialController implements Initializable {
                 txtqtdPaletevag2.setText("");
                 txtqtdPaletevag3.setText("");
                 txtTaraTotal.setText("");
+                txtCnpjTransp.setText("");
+                txtAnttTransp.setText("");
+                txtEmailTransp.setText("");
                 comboBoxMotorista.setValue(null);
                 comboBoxFuncionario.setValue(null);
                 comboBoxVeiculo.setValue(null);
+                comboBoxTransp.setValue(null);
     }
 
     private String qtdPalete (Double comp, Double larg){

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="771.0" prefWidth="1546.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
    <bottom>
       <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
          <buttons>
@@ -95,27 +95,29 @@
       </HBox>
    </top>
    <left>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane prefHeight="929.0" prefWidth="1656.0" BorderPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="400.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="616.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="265.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.0" minWidth="10.0" prefWidth="440.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="918.0" minWidth="10.0" prefWidth="613.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="279.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="883.0" minWidth="10.0" prefWidth="291.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="4.0" />
-            <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="261.0" minHeight="6.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="513.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="6.0" prefHeight="38.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="45.0" minHeight="1.0" prefHeight="5.0" />
+            <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="58.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="261.0" minHeight="0.0" prefHeight="12.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="513.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="6.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="683.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="301.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="174.0" text="Número do Pedido" GridPane.rowIndex="1">
@@ -159,9 +161,9 @@
                   <Insets left="10.0" />
                </padding>
             </Separator>
-            <Separator prefWidth="200.0" GridPane.columnIndex="1">
+            <Separator prefHeight="3.0" prefWidth="568.0" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin>
             </Separator>
             <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="175.0" text="Tipo de Produto" textAlignment="RIGHT" GridPane.rowIndex="3">
@@ -509,12 +511,12 @@
                   <Insets left="75.0" />
                </GridPane.margin>
             </ComboBox>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getPedido" prefHeight="35.0" text="Procurar" textAlignment="JUSTIFY" textFill="#489005" GridPane.rowIndex="1">
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getPedido" prefHeight="35.0" prefWidth="68.0" text="Procurar" textAlignment="JUSTIFY" textFill="#489005" GridPane.rowIndex="1">
                <font>
                   <Font name="Candara Bold" size="12.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="330.0" />
+                  <Insets left="355.0" />
                </GridPane.margin>
             </Button>
             <Label text="Comprimento Mínimo" GridPane.rowIndex="9">
@@ -641,6 +643,95 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
+            <Separator prefHeight="5.0" prefWidth="225.0" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="129.0" text="Transportadora" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboBoxTransp" onAction="#preencherTransp" prefHeight="25.0" prefWidth="180.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="130.0" right="5.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Separator>
+            <Separator layoutX="469.0" layoutY="126.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="50.0" />
+               </GridPane.margin>
+            </Separator>
+            <Label alignment="TOP_LEFT" layoutX="491.0" layoutY="141.0" prefHeight="22.0" prefWidth="59.0" text="CNPJ" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="txtCnpjTransp" alignment="CENTER" contentDisplay="CENTER" layoutX="609.0" layoutY="136.0" prefHeight="32.0" prefWidth="183.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="459.0" layoutY="184.0" prefHeight="22.0" prefWidth="99.0" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="13">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtAnttTransp" alignment="CENTER" layoutX="609.0" layoutY="179.0" prefHeight="32.0" prefWidth="172.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="425.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="491.0" layoutY="230.0" prefHeight="22.0" prefWidth="91.0" text="ANTT" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="325.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="txtEmailTransp" alignment="CENTER" layoutX="609.0" layoutY="225.0" prefHeight="32.0" prefWidth="499.0" style="-fx-background-color: #c9c7c7;" GridPane.columnIndex="1" GridPane.rowIndex="13">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="459.0" layoutY="84.0" prefHeight="31.0" prefWidth="317.0" text="Dados da Transportadora" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <font>
+                  <Font name="Candara Bold" size="26.0" />
+               </font>
+            </Label>
+            <Separator layoutX="469.0" layoutY="118.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="10.0" />
+               </GridPane.margin>
+            </Separator>
          </children>
       </GridPane>
    </left>
