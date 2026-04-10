@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewAgendamento" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
+            <Button fx:id="btViewAgendamento" mnemonicParsing="false" onAction="#switchToAgendamento" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

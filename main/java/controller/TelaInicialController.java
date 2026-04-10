@@ -36,6 +36,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
@@ -146,6 +147,8 @@ public class TelaInicialController implements Initializable {
     private TableColumn<CheckList, String> colunaNomeMot;
     @FXML
     private TableColumn<CheckList, String> colunaPlaca;
+    @FXML
+    private CheckBox checkTranspPrivada;
     
     private List<Funcionario> listaFuncionario; 
     private FilteredList<Funcionario> listaFiltradaFunc;
@@ -172,6 +175,7 @@ public class TelaInicialController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        checkTranspPrivada.setSelected(false);
         btCheck.setDisable(true);
         
         FuncionarioService funcionarios = new FuncionarioService();
@@ -493,6 +497,12 @@ public class TelaInicialController implements Initializable {
     }
     
     @FXML
+    private void switchToAgendamento() throws IOException{
+        App.setRoot("agendamento");
+    }
+    
+    
+    @FXML
     private void getPedido(){
         String numPed = txtFieldNumPedido.getText();
         
@@ -560,15 +570,18 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void gerarCheckEHistorico (){
         
-        if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null || comboBoxTransp.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Sistema");
-            alert.setHeaderText(null);
-            alert.setContentText("Coloque um Pedido Valido, Seu nome, Motorista, Transportadora e Veículo!");
+        if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null){
+            if(!checkTranspPrivada.isSelected()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Coloque um Pedido Valido, Seu nome, Motorista, Transportadora e Veículo!");
                 
-            alert.show();
+                alert.show();
                 
-            return;
+                return;
+            }
+            
         }
         
         
@@ -580,7 +593,12 @@ public class TelaInicialController implements Initializable {
         check.setIdmotoristas(comboBoxMotorista.getValue().getIdMotorista());
         check.setIdfuncionario(comboBoxFuncionario.getValue().getIdFuncionario());
         check.setIdveiculo(comboBoxVeiculo.getValue().getIdVeiculo());
-        check.setIdtransportadora(comboBoxTransp.getValue().getIdTransportadora());
+        if(checkTranspPrivada.isSelected()){
+            check.setIdtransportadora(4);
+        }else{
+            check.setIdtransportadora(comboBoxTransp.getValue().getIdTransportadora());
+        }
+        
         
         ChecklistService checklistService = new ChecklistService();
         
@@ -859,5 +877,15 @@ public class TelaInicialController implements Initializable {
         txtLargMin.setText(largFormatada);
         txtCompMin.setText(compFormatado);
         txtCintaMin.setText(Integer.toString(cintas));
+    }
+    
+    @FXML
+    private void alteraEstadoComboTransp(){
+        
+        if(checkTranspPrivada.isSelected()){
+            comboBoxTransp.setDisable(true);
+        }else{
+            comboBoxTransp.setDisable(false);
+        }
     }
 }

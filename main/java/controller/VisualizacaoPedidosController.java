@@ -156,6 +156,11 @@ public class VisualizacaoPedidosController implements Initializable {
     }
     
     @FXML
+    private void switchToAgendamento() throws IOException{
+        App.setRoot("agendamento");
+    }
+    
+    @FXML
     private void abrirCheckComPedido(MouseEvent event){
         
         if(event.getClickCount() == 2){

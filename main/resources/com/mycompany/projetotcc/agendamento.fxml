@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AgendamentoController">
    <bottom>
       <ButtonBar fx:id="barraBt" cache="true" prefHeight="47.0" style="-fx-background-color: #707070;" BorderPane.alignment="CENTER">
          <buttons>
-            <Button fx:id="btCheck" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Checklist" textFill="WHITE">
+            <Button fx:id="btCheck" mnemonicParsing="false" onAction="#switchToChecklist" style="-fx-background-color: #000000;" text="Checklist" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewAgendamento" mnemonicParsing="false" onAction="#switchToAgendamento" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
+            <Button fx:id="btViewAgendamento" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Agendamento" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -71,7 +71,7 @@
    <top>
       <HBox fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1290.0" style="-fx-background-color: #59c977;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="58.0" prefWidth="571.0" text="Check-List e Fila" textAlignment="RIGHT">
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="58.0" prefWidth="571.0" text="Agendamento" textAlignment="RIGHT">
                <font>
                   <Font name="Calibri Light" size="50.0" />
                </font>
@@ -84,7 +84,7 @@
                   <Insets left="330.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#gerarCheckEHistorico" prefHeight="104.0" prefWidth="110.0" text="Imprimir">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#agendarCarregamento" prefHeight="104.0" prefWidth="110.0" text="Agendar">
                <font>
                   <Font name="Candara Bold" size="18.0" />
                </font>
@@ -240,22 +240,6 @@
                   <Font name="Candara Light" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="22.0" prefWidth="128.0" text="Emissor" GridPane.rowIndex="12">
-               <font>
-                  <Font name="Candara Bold" size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="50.0" />
-               </GridPane.margin>
-            </Label>
-            <ComboBox fx:id="comboBoxFuncionario" prefHeight="35.0" prefWidth="202.0" GridPane.rowIndex="12">
-               <GridPane.margin>
-                  <Insets left="190.0" />
-               </GridPane.margin>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </ComboBox>
             <Label text="Tara Mínima Aprox." GridPane.rowIndex="7">
                <font>
                   <Font name="Candara Bold" size="18.0" />
@@ -744,12 +728,12 @@
    <right>
       <VBox prefHeight="620.0" prefWidth="264.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="266.0" text="Fila de Carregamento">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="266.0" text="Agendados">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="tabFila" onMouseClicked="#sairDaFila" prefHeight="851.0" prefWidth="264.0" />
+            <TableView fx:id="tabAgenda" onMouseClicked="#irParaFila" prefHeight="851.0" prefWidth="264.0" />
          </children>
       </VBox>
    </right>

@@ -458,6 +458,11 @@ public class ManutencaoMotoristaController implements Initializable {
     }
     
     @FXML
+    private void switchToAgendamento() throws IOException{
+        App.setRoot("agendamento");
+    }
+    
+    @FXML
     private void carregaDadosDaTabela(MouseEvent event){
         if(event.getClickCount() == 2){
             Motorista motorista = tabelaMot.getSelectionModel().getSelectedItem();
