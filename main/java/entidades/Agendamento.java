@@ -1,10 +1,11 @@
 package entidades;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Agendamento {
     private int idAgendamento;
-    private Date dataPrevista;
+    private LocalDate dataPrevista;
     private Motorista motorista;
     private Funcionario funcionario;
     private Pedido pedido;
@@ -19,11 +20,11 @@ public class Agendamento {
         this.idAgendamento = idAgendamento;
     }
 
-    public Date getDataPrevista() {
+    public LocalDate getDataPrevista() {
         return dataPrevista;
     }
 
-    public void setDataPrevista(Date dataPrevista) {
+    public void setDataPrevista(LocalDate dataPrevista) {
         this.dataPrevista = dataPrevista;
     }
 
