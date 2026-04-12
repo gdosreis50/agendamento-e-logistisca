@@ -13,6 +13,7 @@ import entidades.Transportadora;
 import entidades.Vagao;
 import entidades.Veiculo;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -49,6 +50,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import projetotcc.App;
+import service.AgendamentoService;
 import service.ChecklistService;
 import service.FuncionarioService;
 import service.MotoristaService;
@@ -166,7 +168,10 @@ public class TelaInicialController implements Initializable {
     private FilteredList<Transportadora> listaFiltradaTransp;
     
     private Pedido pedido;
-    
+    private Motorista motorista;
+    private Veiculo veiculo;
+    private Transportadora transportadora;
+    private Integer idAgendamento;
     
     /**
      * Initializes the controller class.
@@ -569,20 +574,33 @@ public class TelaInicialController implements Initializable {
     
     @FXML
     private void gerarCheckEHistorico (){
-        
-        if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null){
-            if(!checkTranspPrivada.isSelected()){
+        System.out.println(comboBoxFuncionario.getValue());
+        if(checkTranspPrivada.isSelected()){
+            if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Sistema");
                 alert.setHeaderText(null);
-                alert.setContentText("Coloque um Pedido Valido, Seu nome, Motorista, Transportadora e Veículo!");
+                alert.setContentText("Coloque um Pedido Válido, Seu nome, Motorista, Transportadora e Veículo!");
                 
                 alert.show();
                 
                 return;
-            }
             
+            }
+        }else{
+            if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null || comboBoxTransp.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sistema");
+                alert.setHeaderText(null);
+                alert.setContentText("Coloque um Pedido Válido, Seu nome, Motorista, Transportadora e Veículo!");
+                
+                alert.show();
+                
+                return;
+            
+            }
         }
+        
         
         
         ChecklistDTO check = new ChecklistDTO();
@@ -590,13 +608,18 @@ public class TelaInicialController implements Initializable {
         check.setDataEmissao(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
         
         check.setNumPed(txtFieldNumPedido.getText());
+            //System.out.println(txtFieldNumPedido.getText());
         check.setIdmotoristas(comboBoxMotorista.getValue().getIdMotorista());
+            //System.out.println(comboBoxMotorista.getValue().getIdMotorista());
         check.setIdfuncionario(comboBoxFuncionario.getValue().getIdFuncionario());
+            //System.out.println(comboBoxFuncionario.getValue().getIdFuncionario());
         check.setIdveiculo(comboBoxVeiculo.getValue().getIdVeiculo());
+            //System.out.println(comboBoxVeiculo.getValue().getIdVeiculo());
         if(checkTranspPrivada.isSelected()){
             check.setIdtransportadora(4);
         }else{
-            check.setIdtransportadora(comboBoxTransp.getValue().getIdTransportadora());
+            check.setIdtransportadora(comboBoxTransp.getValue().getIdTransportadora()); //0, se vêm do agendamento. Precisa selecioná-lo à mão para funcionar
+                //System.out.println(comboBoxTransp.getValue().getIdTransportadora());
         }
         
         
@@ -608,15 +631,33 @@ public class TelaInicialController implements Initializable {
             if  (salvo) {
                 
                 atualizaFila();
+                if(idAgendamento != null){
+                    AgendamentoService agendamentoService = new AgendamentoService();
+                    
+                    boolean desativado = agendamentoService.desativarAgendamento(idAgendamento);
+                    
+                    if (desativado){
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Sistema");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Carregamento Salvo");
                 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Sistema");
-                alert.setHeaderText(null);
-                alert.setContentText("Carregamento Salvo");
+                        alert.show();
                 
-                alert.show();
+                        limparCampos();
+                    }
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Sistema");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Carregamento Salvo");
                 
-                limparCampos();
+                    alert.show();
+                
+                    limparCampos();
+                }
+                
+                
                 
             }else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -677,30 +718,43 @@ public class TelaInicialController implements Initializable {
             txtPlaca.setText(veiculo.getPlaca());
             txtTipoVeic.setText(veiculo.getTipo());
             
-            Vagao vagao1 = veiculo.getVagoes().get(0);    
-            txtPrimVagao.setText(vagao1.toString());
-            double comp1 = vagao1.getComprimento();
-            double larg1 = vagao1.getLargura();
             int tara = veiculo.getTara();
-            txtqtdPaletevag1.setText(qtdPalete(comp1, larg1) + " Paletes");
-            
-            Vagao vagao2 = veiculo.getVagoes().get(1);    
-            txtSegVagao.setText(vagao2.toString());
-            double comp2 = vagao2.getComprimento();
-            double larg2 = vagao2.getLargura();
-            
-            txtqtdPaletevag2.setText(qtdPalete(comp2, larg2) + " Paletes");
-            
-            Vagao vagao3 = veiculo.getVagoes().get(2);    
-            txtTercVagao.setText(vagao3.toString());
-            double comp3 = vagao3.getComprimento();
-            double larg3 = vagao3.getLargura();
-            
-            txtqtdPaletevag3.setText(qtdPalete(comp3, larg3) + " Paletes");
-            
             txtTaraTotal.setText(Integer.toString(tara));
             
-            }else{
+    
+            List<Vagao> vagoes = veiculo.getVagoes();
+            
+    
+            if(vagoes.size() > 0){
+                Vagao vagao1 = veiculo.getVagoes().get(0);    
+                txtPrimVagao.setText(vagao1.toString());
+                double comp1 = vagao1.getComprimento();
+                double larg1 = vagao1.getLargura();
+                txtqtdPaletevag1.setText(qtdPalete(comp1, larg1) + " Paletes");
+            }
+            
+            if(vagoes.size() > 1){
+                Vagao vagao2 = veiculo.getVagoes().get(1);    
+                txtSegVagao.setText(vagao2.toString());
+                double comp2 = vagao2.getComprimento();
+                double larg2 = vagao2.getLargura();
+            
+                txtqtdPaletevag2.setText(qtdPalete(comp2, larg2) + " Paletes");
+            }
+            
+            if(vagoes.size() > 2){
+                veiculo.getVagoes().get(2);
+                Vagao vagao3 = veiculo.getVagoes().get(2);    
+                txtTercVagao.setText(vagao3.toString());
+                double comp3 = vagao3.getComprimento();
+                double larg3 = vagao3.getLargura();
+            
+                txtqtdPaletevag3.setText(qtdPalete(comp3, larg3) + " Paletes");
+            }
+            
+            
+            
+        }else{
             txtTipoVeic.setText("");
             txtPrimVagao.setText("");
             txtSegVagao.setText("");
@@ -711,9 +765,7 @@ public class TelaInicialController implements Initializable {
             txtqtdPaletevag3.setText("");
             txtTaraTotal.setText("");
         }
-            
-            
-        }
+    }
     
     @FXML
     private void preencherTransp (){
@@ -736,36 +788,39 @@ public class TelaInicialController implements Initializable {
     @FXML
     private void limparCampos (){
         txtFieldNumPedido.setText("");
-                txtTipoProduto.setText("");
-                txtCliente.setText("");
-                txtLiberado.setText("");
-                txtNumPaletes.setText("");
-                txtCalcTaraMin.setText("");
-                txtTransp.setText("");
-                txtTipoVeic.setText("");
-                txtPlaca.setText("");
-                txtPrimVagao.setText("");
-                txtSegVagao.setText("");
-                txtTercVagao.setText("");
-                txtCpfMot.setText("");
-                txtCnhMot.setText("");
-                txtCatCnh.setText("");
-                txtVencChn.setText("");
-                txtTel.setText("");
-                txtCompMin.setText("");
-                txtLargMin.setText("");
-                txtCintaMin.setText("");
-                txtqtdPaletevag1.setText("");
-                txtqtdPaletevag2.setText("");
-                txtqtdPaletevag3.setText("");
-                txtTaraTotal.setText("");
-                txtCnpjTransp.setText("");
-                txtAnttTransp.setText("");
-                txtEmailTransp.setText("");
-                comboBoxMotorista.setValue(null);
-                comboBoxFuncionario.setValue(null);
-                comboBoxVeiculo.setValue(null);
-                comboBoxTransp.setValue(null);
+        txtTipoProduto.setText("");
+        txtCliente.setText("");
+        txtLiberado.setText("");
+        txtNumPaletes.setText("");
+        txtCalcTaraMin.setText("");
+        txtTransp.setText("");
+        txtTipoVeic.setText("");
+        txtPlaca.setText("");
+        txtPrimVagao.setText("");
+        txtSegVagao.setText("");
+        txtTercVagao.setText("");
+        txtCpfMot.setText("");
+        txtCnhMot.setText("");
+        txtCatCnh.setText("");
+        txtVencChn.setText("");
+        txtTel.setText("");
+        txtCompMin.setText("");
+        txtLargMin.setText("");
+        txtCintaMin.setText("");
+        txtqtdPaletevag1.setText("");
+        txtqtdPaletevag2.setText("");
+        txtqtdPaletevag3.setText("");
+        txtTaraTotal.setText("");
+        txtCnpjTransp.setText("");
+        txtAnttTransp.setText("");
+        txtEmailTransp.setText("");
+        comboBoxMotorista.setValue(null);
+        comboBoxFuncionario.setValue(null);
+        comboBoxVeiculo.setValue(null);
+        comboBoxTransp.setValue(null);
+        checkTranspPrivada.setSelected(false);
+        alteraEstadoComboTransp();
+        idAgendamento = null;
     }
 
     private String qtdPalete (Double comp, Double larg){
@@ -877,6 +932,130 @@ public class TelaInicialController implements Initializable {
         txtLargMin.setText(largFormatada);
         txtCompMin.setText(compFormatado);
         txtCintaMin.setText(Integer.toString(cintas));
+    }
+    
+    public void initCheckCompleto(Pedido pedido, Motorista motorista, Veiculo veiculo, Transportadora transportadora, int idAgendamento){
+        
+        this.idAgendamento = idAgendamento;
+        this.pedido = pedido;
+            
+        int taraPed = pedido.getNumPaletes();
+        int cintas = pedido.getNumPaletes();
+        double comprimento = pedido.getNumPaletes();
+        final double LARGURA = 2.5;
+                
+        //System.out.println(LARGURA);
+              
+        comprimento = (comprimento/2) * 1.05;
+        cintas = (cintas/2) + 2;
+        taraPed = taraPed * 1000;
+                
+        String compFormatado = String.format("%.2f", comprimento);
+        String largFormatada = String.format("%.2f", LARGURA);
+            
+        txtFieldNumPedido.setText(pedido.getNumPed());
+        txtCliente.setText(pedido.getNomeCliente());
+        txtLiberado.setText(pedido.getStatusPed());
+        txtNumPaletes.setText(String.valueOf(pedido.getNumPaletes()));
+        txtCalcTaraMin.setText(String.valueOf(taraPed));
+        txtTransp.setText(pedido.getTransportadora());
+        txtTipoProduto.setText("Carolina Soil");
+        txtLargMin.setText(largFormatada);
+        txtCompMin.setText(compFormatado);
+        txtCintaMin.setText(Integer.toString(cintas));
+        
+        //-------------------------------------------//
+        
+        this.transportadora = transportadora;
+        if(transportadora == null){
+            txtCnpjTransp.setText("");
+            txtAnttTransp.setText("");
+            txtEmailTransp.setText("");
+        }else if(transportadora.getIdTransportadora() == 4){
+            checkTranspPrivada.setSelected(true);
+            alteraEstadoComboTransp();
+        }else{
+            comboBoxTransp.setValue(transportadora);
+            txtCnpjTransp.setText(transportadora.getCnpj());
+            txtAnttTransp.setText(transportadora.getAntt());
+            txtEmailTransp.setText(transportadora.getEmail());
+        }
+        
+        //---------------------------------------------//
+        
+        this.motorista = motorista;
+        if(motorista == null){
+            txtCpfMot.setText("");
+            txtCnhMot.setText("");
+            txtCatCnh.setText("");        
+            txtVencChn.setText("");
+            txtTel.setText("");
+        }else{
+            comboBoxMotorista.setValue(motorista);
+            txtCpfMot.setText(motorista.getCpf());
+            txtCnhMot.setText(motorista.getCnh());
+            txtCatCnh.setText(motorista.getCategoriaCnh());        
+            txtVencChn.setText(motorista.getDataVencimentoCnh().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+            txtTel.setText(motorista.getTelefone());
+        }
+        
+        //---------------------------------------//
+        
+        this.veiculo = veiculo;
+        
+        if(veiculo == null){
+            txtTipoVeic.setText("");
+            txtPrimVagao.setText("");
+            txtSegVagao.setText("");
+            txtTercVagao.setText("");
+            txtPlaca.setText("");
+            txtqtdPaletevag1.setText("");
+            txtqtdPaletevag2.setText("");
+            txtqtdPaletevag3.setText("");
+            txtTaraTotal.setText("");
+            
+         }else{
+            
+            comboBoxVeiculo.setValue(veiculo);
+            
+            txtPlaca.setText(veiculo.getPlaca());
+            txtTipoVeic.setText(veiculo.getTipo());
+            
+            int tara = veiculo.getTara();
+            txtTaraTotal.setText(Integer.toString(tara));
+            
+    
+            List<Vagao> vagoes = veiculo.getVagoes();
+            
+    
+            if(vagoes.size() > 0){
+                Vagao vagao1 = veiculo.getVagoes().get(0);    
+                txtPrimVagao.setText(vagao1.toString());
+                double comp1 = vagao1.getComprimento();
+                double larg1 = vagao1.getLargura();
+                txtqtdPaletevag1.setText(qtdPalete(comp1, larg1) + " Paletes");
+            }
+            
+            if(vagoes.size() > 1){
+                Vagao vagao2 = veiculo.getVagoes().get(1);    
+                txtSegVagao.setText(vagao2.toString());
+                double comp2 = vagao2.getComprimento();
+                double larg2 = vagao2.getLargura();
+            
+                txtqtdPaletevag2.setText(qtdPalete(comp2, larg2) + " Paletes");
+            }
+            
+            if(vagoes.size() > 2){
+                veiculo.getVagoes().get(2);
+                Vagao vagao3 = veiculo.getVagoes().get(2);    
+                txtTercVagao.setText(vagao3.toString());
+                double comp3 = vagao3.getComprimento();
+                double larg3 = vagao3.getLargura();
+            
+                txtqtdPaletevag3.setText(qtdPalete(comp3, larg3) + " Paletes");
+            }
+        }
+        
     }
     
     @FXML

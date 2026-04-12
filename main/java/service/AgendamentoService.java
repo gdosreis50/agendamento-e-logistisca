@@ -68,22 +68,12 @@ public class AgendamentoService {
     
     
     // Cria novo agendamento no BD e retorna true se der certo ou false para falha
-    public static boolean novoAgendamento(Date dataPrevista, int idMotorista, int idPedido, int idTransportadora, int idVeiculo, int idFunc) throws Exception{
-        
-        
-        AgendamentoDTO agendamento = new AgendamentoDTO();
-        
-        agendamento.setDataPrevista(dataPrevista);
-        agendamento.setIdmotorista(idMotorista);
-        agendamento.setIdfuncionario(idFunc);
-        agendamento.setIdpedido(idPedido);
-        agendamento.setIdtransportadora(idTransportadora);
-        agendamento.setIdveiculo(idVeiculo);
+    public static boolean novoAgendamento(AgendamentoDTO agendamento) throws Exception{
         
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(agendamento);
         
-        //System.out.println(request);
+        System.out.println(request);
         
         
         HttpRequest novoAgendamento;
@@ -105,16 +95,7 @@ public class AgendamentoService {
     }
     
     // Atualiza dado agendamento. Retorna true se bem sucedido e false para falha
-    public static boolean atualizaAgendamento(int idAgendamento, Date dataPrevista, int idMotorista, int idPedido, int idTransportadora, int idVeiculo, int idFunc) throws Exception{
-        
-        AgendamentoDTO agendamento = new AgendamentoDTO();
-        
-        agendamento.setDataPrevista(dataPrevista);
-        agendamento.setIdmotorista(idMotorista);
-        agendamento.setIdfuncionario(idFunc);
-        agendamento.setIdpedido(idPedido);
-        agendamento.setIdtransportadora(idTransportadora);
-        agendamento.setIdveiculo(idVeiculo);
+    public static boolean atualizaAgendamento(int idAgendamento, AgendamentoDTO agendamento) throws Exception{
         
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(agendamento);

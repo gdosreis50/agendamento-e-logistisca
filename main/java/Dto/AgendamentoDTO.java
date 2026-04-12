@@ -1,20 +1,20 @@
 package Dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class AgendamentoDTO {
-    private Date dataPrevista;
+    private LocalDate dataPrevista;
     private int idmotorista;
     private int idfuncionario;
     private int idpedido;
     private int idtransportadora;
     private int idveiculo;
 
-    public Date getDataPrevista() {
+    public LocalDate getDataPrevista() {
         return dataPrevista;
     }
 
-    public void setDataPrevista(Date dataPrevista) {
+    public void setDataPrevista(LocalDate dataPrevista) {
         this.dataPrevista = dataPrevista;
     }
 

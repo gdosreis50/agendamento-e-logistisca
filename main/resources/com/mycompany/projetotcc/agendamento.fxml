@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableView?>
@@ -91,6 +92,14 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#cancelarAgendamento" prefHeight="103.0" prefWidth="180.0" text="Desativar Agendamento" textFill="#fc0000">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Button>
          </children>
       </HBox>
@@ -722,6 +731,35 @@
                   <Insets left="20.0" top="70.0" />
                </GridPane.margin>
             </CheckBox>
+            <Label contentDisplay="RIGHT" prefHeight="22.0" prefWidth="148.0" text="Data Carregamento" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Candara Light" size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dataPrevistaCarregamento" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </DatePicker>
+            <Label prefHeight="22.0" prefWidth="128.0" text="Emissor" GridPane.rowIndex="12">
+               <font>
+                  <Font name="Candara Bold" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="comboBoxFuncionario" prefHeight="35.0" prefWidth="202.0" GridPane.rowIndex="12">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="190.0" />
+               </GridPane.margin>
+            </ComboBox>
          </children>
       </GridPane>
    </left>
