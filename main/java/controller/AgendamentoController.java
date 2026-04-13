@@ -836,6 +836,11 @@ public class AgendamentoController implements Initializable {
     private void switchToMotoristas(ActionEvent event) throws IOException {
         App.setRoot("manutencaoMotorista");
     }
+    
+    @FXML
+    private void switchToVeiculo(ActionEvent event) throws IOException {
+        App.setRoot("manutencaoVeiculo");
+    }
 
     @FXML
     private void switchToFuncionarios(ActionEvent event) throws IOException {

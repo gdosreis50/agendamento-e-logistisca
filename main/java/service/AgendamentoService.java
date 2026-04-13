@@ -73,7 +73,7 @@ public class AgendamentoService {
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(agendamento);
         
-        System.out.println(request);
+        //System.out.println(request);
         
         
         HttpRequest novoAgendamento;

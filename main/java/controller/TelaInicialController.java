@@ -506,6 +506,11 @@ public class TelaInicialController implements Initializable {
         App.setRoot("agendamento");
     }
     
+    @FXML
+    private void switchToVeiculo() throws IOException {
+        App.setRoot("manutencaoVeiculo");
+    }
+    
     
     @FXML
     private void getPedido(){

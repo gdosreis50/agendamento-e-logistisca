@@ -25,7 +25,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btViewVeiculo" mnemonicParsing="false" style="-fx-background-color: #000000;" text="Veículos" textFill="WHITE">
+            <Button fx:id="btViewVeiculo" mnemonicParsing="false" onAction="#switchToVeiculo" style="-fx-background-color: #000000;" text="Veículos" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

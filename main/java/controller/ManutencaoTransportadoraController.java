@@ -380,6 +380,11 @@ public class ManutencaoTransportadoraController implements Initializable {
     private void switchToCheck(ActionEvent event) throws IOException {
         App.setRoot("telaInicial");
     }
+    
+    @FXML
+    private void switchToVeiculo(ActionEvent event) throws IOException {
+        App.setRoot("manutencaoVeiculo");
+    }
 
     @FXML
     private void switchToPedidos(ActionEvent event) throws IOException {

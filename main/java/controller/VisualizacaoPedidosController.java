@@ -139,6 +139,11 @@ public class VisualizacaoPedidosController implements Initializable {
     private void switchToCheck() throws IOException {
         App.setRoot("telaInicial");
     }
+    
+    @FXML
+    private void switchToVeiculo(ActionEvent event) throws IOException {
+        App.setRoot("manutencaoVeiculo");
+    }
 
     @FXML
     private void switchToMotorista() throws IOException {
