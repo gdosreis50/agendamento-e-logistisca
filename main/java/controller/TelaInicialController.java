@@ -12,6 +12,7 @@ import entidades.Pedido;
 import entidades.Transportadora;
 import entidades.Vagao;
 import entidades.Veiculo;
+import service.ImpressaoService;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
@@ -20,6 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -167,7 +169,7 @@ public class TelaInicialController implements Initializable {
     private List<Transportadora> listaTransp;
     private FilteredList<Transportadora> listaFiltradaTransp;
     
-    private Pedido pedido;
+    private Pedido pedidoCheck;
     private Motorista motorista;
     private Veiculo veiculo;
     private Transportadora transportadora;
@@ -521,6 +523,7 @@ public class TelaInicialController implements Initializable {
         try {           
             Pedido pedido = new Pedido();
             pedido = request.getPedido(numPed);
+            pedidoCheck = pedido;
             
             if (pedido.getNumPaletes() != 0){
             
@@ -579,7 +582,7 @@ public class TelaInicialController implements Initializable {
     
     @FXML
     private void gerarCheckEHistorico (){
-        System.out.println(comboBoxFuncionario.getValue());
+        //System.out.println(comboBoxFuncionario.getValue());
         if(checkTranspPrivada.isSelected()){
             if(comboBoxMotorista.getValue() == null || comboBoxFuncionario.getValue() == null || comboBoxVeiculo.getValue() == null || txtFieldNumPedido.getText() == null){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -649,7 +652,7 @@ public class TelaInicialController implements Initializable {
                 
                         alert.show();
                 
-                        limparCampos();
+                        //limparCampos();
                     }
                 }else{
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -659,9 +662,28 @@ public class TelaInicialController implements Initializable {
                 
                     alert.show();
                 
-                    limparCampos();
+                    //limparCampos();
                 }
                 
+                ImpressaoService impressao = new ImpressaoService();
+                CheckList checklist = new CheckList();
+                
+                checklist.setVeiculo(comboBoxVeiculo.getValue());
+                checklist.setMotorista(comboBoxMotorista.getValue());
+                checklist.setFuncionario(comboBoxFuncionario.getValue());
+                
+                if(checkTranspPrivada.isSelected()){
+                    checklist.setTransportadora(null);
+                }else{
+                    checklist.setTransportadora(comboBoxTransp.getValue());
+                }
+                
+                
+                checklist.setDataEmissao(Date.from(Instant.now()));
+                
+                
+                impressao.gerarChecklist(checklist, pedidoCheck);
+                limparCampos();
                 
                 
             }else {
@@ -910,7 +932,7 @@ public class TelaInicialController implements Initializable {
     }   
     
     public void initPedido(Pedido pedido){
-        this.pedido = pedido;
+        this.pedidoCheck = pedido;
         
         
             
@@ -942,7 +964,7 @@ public class TelaInicialController implements Initializable {
     public void initCheckCompleto(Pedido pedido, Motorista motorista, Veiculo veiculo, Transportadora transportadora, int idAgendamento){
         
         this.idAgendamento = idAgendamento;
-        this.pedido = pedido;
+        this.pedidoCheck = pedido;
             
         int taraPed = pedido.getNumPaletes();
         int cintas = pedido.getNumPaletes();

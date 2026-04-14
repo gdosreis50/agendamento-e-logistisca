@@ -7,6 +7,8 @@ module projetotcc {
     requires com.google.gson;
     requires java.net.http;
     requires java.base;
+    requires javafx.swing;
+    requires org.apache.pdfbox;
     
     opens entidades to com.google.gson;
     opens Dto to com.google.gson;
@@ -15,7 +17,7 @@ module projetotcc {
     
     opens controller to javafx.fxml;
     requires javafx.graphicsEmpty;
-     
+    
     requires java.logging;
      
 }
