@@ -2,6 +2,7 @@ package service;
 
 import Dto.VagaoDTO;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entidades.Vagao;
 import java.lang.reflect.Type;
@@ -9,7 +10,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.List;
+import util.LocalDateAdapter;
 
 public class VagaoService {
     public static String BASE_URL = "http://localhost/api/vagao/";
@@ -55,18 +58,10 @@ public class VagaoService {
     
     
     // Cria novo vagao no BD e retorna true se der certo ou false para falha
-    public static boolean novoVagao(double comprimento, double largura, double altura, int idVeiculo, int idFunc) throws Exception{
+    public static boolean novoVagao(VagaoDTO vagao) throws Exception{
+
         
-        
-        VagaoDTO vagao = new VagaoDTO();
-        
-        vagao.setComprimento(comprimento);
-        vagao.setLargura(largura);
-        vagao.setAltura(altura);
-        vagao.setIdVeiculo(idVeiculo);
-        vagao.setIdFuncionario(idFunc);
-        
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(vagao);
         
         //System.out.println(request);

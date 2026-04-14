@@ -2,6 +2,7 @@ package service;
 
 import Dto.VeiculoDTO;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import entidades.Veiculo;
 import java.lang.reflect.Type;
@@ -9,7 +10,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.List;
+import util.LocalDateAdapter;
 
 public class VeiculoService {
     
@@ -26,7 +29,7 @@ public class VeiculoService {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> getResposta = httpClient.send(getListVeiculo, HttpResponse.BodyHandlers.ofString());
         
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         Type listType = new TypeToken<List<Veiculo>>(){}.getType();
         
         
@@ -54,16 +57,9 @@ public class VeiculoService {
     }
     
     // Cria novo veiculo no BD e retorna true se der certo ou false para falha
-    public static boolean novoVeiculo(String placa, String tipo, int idFunc) throws Exception{
+    public static boolean novoVeiculo(VeiculoDTO veiculo) throws Exception{
         
-        
-        VeiculoDTO veiculo = new VeiculoDTO();
-        
-        veiculo.setPlaca(placa);
-        veiculo.setTipo(tipo);
-        veiculo.setIdfuncionario(idFunc);
-        
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(veiculo);
         
         //System.out.println(request);
@@ -88,15 +84,9 @@ public class VeiculoService {
     }
     
     // Atualiza dado veiculo. Retorna true se bem sucedido e false para falha
-    public static boolean atualizaVeiculo(int idVeiculo, String placa, String tipo, int idFunc) throws Exception{
+    public static boolean atualizaVeiculo(int idVeiculo, VeiculoDTO veiculo) throws Exception{
         
-        VeiculoDTO veiculo = new VeiculoDTO();
-        
-        veiculo.setPlaca(placa);
-        veiculo.setTipo(tipo);
-        veiculo.setIdfuncionario(idFunc);
-        
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String request = gson.toJson(veiculo);
         
         //System.out.print(request);
