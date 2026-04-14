@@ -950,6 +950,7 @@ public class TelaInicialController implements Initializable {
         String compFormatado = String.format("%.2f", comprimento);
         String largFormatada = String.format("%.2f", LARGURA);
             
+        txtFieldNumPedido.setText(pedido.getNumPed());
         txtCliente.setText(pedido.getNomeCliente());
         txtLiberado.setText(pedido.getStatusPed());
         txtNumPaletes.setText(String.valueOf(pedido.getNumPaletes()));
