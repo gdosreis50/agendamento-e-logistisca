@@ -15,4 +15,4 @@ Para tanto, ainda contempla cadastro e manutenção de motoristas, veículos, va
   - Ao adicionar a fila de carregamento, emitir documento de checklist e aceite;
   - Retirar carregamentos da fila para concluir carregamento.
 
-Este projeto consome API desenvolvida no repositório "agendamento-e-log-stica", sendo apenas um app cliente. Outros apps/sites podem ser desenvolvidos a partir daqui.
+Este projeto consome API desenvolvida no repositório "agendamento_e_log-stica", sendo apenas um app cliente. Outros apps/sites podem ser desenvolvidos a partir daqui.
